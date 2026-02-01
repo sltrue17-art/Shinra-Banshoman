@@ -3,13 +3,15 @@
 import { useRef, useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
 import MessageDisplay from './MessageDisplay';
-import type { Message } from '@/types';
+import type { Message, ClaudeModelId } from '@/types';
+import { CLAUDE_MODELS } from '@/types';
 
 interface ChatAreaProps {
   messages: Message[];
   isStreaming: boolean;
   streamingContent: string;
   streamingThinking: string;
+  selectedModel: ClaudeModelId;
 }
 
 export default function ChatArea({
@@ -17,8 +19,10 @@ export default function ChatArea({
   isStreaming,
   streamingContent,
   streamingThinking,
+  selectedModel,
 }: ChatAreaProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const currentModel = CLAUDE_MODELS.find(m => m.id === selectedModel);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -46,7 +50,7 @@ export default function ChatArea({
           </h2>
 
           <p className="text-gray-400 text-lg mb-8 leading-relaxed">
-            I'm your advanced storytelling companion, powered by Claude Opus 4.5.
+            I'm your advanced storytelling companion, powered by {currentModel?.name || 'Claude'}.
             Together, we can craft extraordinary narratives—from epic original stories
             to faithful fan fiction that honors beloved characters.
           </p>

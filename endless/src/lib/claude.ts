@@ -1,19 +1,20 @@
 import Anthropic from '@anthropic-ai/sdk';
-import type { Message, StoryBible, SearchResult } from '@/types';
+import type { Message, StoryBible, SearchResult, ClaudeModelId } from '@/types';
 import { buildFullSystemPrompt } from './storytelling-prompts';
 
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Claude Opus 4.5 model ID
-const MODEL_ID = 'claude-opus-4-5-20250127';
+// Default model ID
+const DEFAULT_MODEL_ID: ClaudeModelId = 'claude-opus-4-5-20250127';
 
 interface GenerateOptions {
   messages: Message[];
   storyBible?: StoryBible | null;
   searchContext?: string;
   thinkLonger?: boolean;
+  model?: ClaudeModelId;
   onTextChunk?: (text: string) => void;
   onThinkingChunk?: (text: string) => void;
   signal?: AbortSignal;
@@ -30,6 +31,7 @@ export async function generateStoryResponse(options: GenerateOptions): Promise<G
     storyBible,
     searchContext,
     thinkLonger = false,
+    model = DEFAULT_MODEL_ID,
     onTextChunk,
     onThinkingChunk,
     signal,
@@ -45,7 +47,7 @@ export async function generateStoryResponse(options: GenerateOptions): Promise<G
 
   // Build request parameters
   const requestParams: Anthropic.MessageCreateParams = {
-    model: MODEL_ID,
+    model: model,
     max_tokens: 64000, // Maximum for long-form generation
     system: systemPrompt,
     messages: anthropicMessages,
@@ -98,14 +100,15 @@ export async function generateStoryResponse(options: GenerateOptions): Promise<G
 // Simple non-streaming version for quick operations
 export async function generateQuickResponse(
   prompt: string,
-  context?: string
+  context?: string,
+  model: ClaudeModelId = DEFAULT_MODEL_ID
 ): Promise<string> {
   const systemPrompt = context
     ? `You are Endless, an advanced storytelling AI. ${context}`
     : 'You are Endless, an advanced storytelling AI. Respond helpfully and concisely.';
 
   const response = await anthropic.messages.create({
-    model: MODEL_ID,
+    model: model,
     max_tokens: 1024,
     system: systemPrompt,
     messages: [{ role: 'user', content: prompt }],
@@ -116,13 +119,16 @@ export async function generateQuickResponse(
 }
 
 // Generate a title for a new chat based on initial message
-export async function generateChatTitle(firstMessage: string): Promise<string> {
+export async function generateChatTitle(
+  firstMessage: string,
+  model: ClaudeModelId = DEFAULT_MODEL_ID
+): Promise<string> {
   const prompt = `Based on this message, generate a short, evocative title (3-6 words) for this creative writing conversation. Just respond with the title, nothing else.
 
 Message: "${firstMessage.substring(0, 500)}"`;
 
   try {
-    const title = await generateQuickResponse(prompt);
+    const title = await generateQuickResponse(prompt, undefined, model);
     return title.replace(/['"]/g, '').trim().substring(0, 50) || 'New Story';
   } catch {
     return 'New Story';

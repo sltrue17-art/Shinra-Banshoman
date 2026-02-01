@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     const {
       chatId,
       message,
-      settings = {},
+      settings = { thinkLonger: false, webSearch: false },
     }: {
       chatId?: string;
       message: string;
@@ -76,6 +76,7 @@ export async function POST(request: NextRequest) {
             storyBible,
             searchContext,
             thinkLonger: settings.thinkLonger,
+            model: settings.model,
             onTextChunk: (text) => {
               fullContent += text;
               controller.enqueue(
@@ -108,7 +109,7 @@ export async function POST(request: NextRequest) {
 
           // Generate title for new chats
           if (isNewChat && message.length > 10) {
-            const title = await generateChatTitle(message);
+            const title = await generateChatTitle(message, settings.model);
             updateChatTitle(chat!.id, title);
             controller.enqueue(
               encoder.encode(
