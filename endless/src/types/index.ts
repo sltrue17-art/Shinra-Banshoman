@@ -88,11 +88,46 @@ export interface SearchResult {
   snippet: string;
 }
 
+// Available Claude models
+export type ClaudeModelId =
+  | 'claude-opus-4-5-20250127'
+  | 'claude-sonnet-5-20250601'
+  | 'claude-opus-5-20250801';
+
+export interface ClaudeModel {
+  id: ClaudeModelId;
+  name: string;
+  description: string;
+  supportsThinking: boolean;
+}
+
+export const CLAUDE_MODELS: ClaudeModel[] = [
+  {
+    id: 'claude-opus-4-5-20250127',
+    name: 'Claude Opus 4.5',
+    description: 'Advanced model with extended thinking',
+    supportsThinking: true,
+  },
+  {
+    id: 'claude-sonnet-5-20250601',
+    name: 'Claude Sonnet 5',
+    description: 'Fast and intelligent, great for most tasks',
+    supportsThinking: true,
+  },
+  {
+    id: 'claude-opus-5-20250801',
+    name: 'Claude Opus 5',
+    description: 'Most powerful model for complex storytelling',
+    supportsThinking: true,
+  },
+];
+
 export interface GenerationSettings {
   thinkLonger: boolean;
   webSearch: boolean;
   storyBibleId?: string;
   maxTokens?: number;
+  model?: ClaudeModelId;
 }
 
 export interface StreamChunk {

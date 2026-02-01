@@ -11,7 +11,8 @@ import {
   ChevronRight,
   Sparkles,
 } from 'lucide-react';
-import type { ChatSummary } from '@/types';
+import type { ChatSummary, ClaudeModelId } from '@/types';
+import { CLAUDE_MODELS } from '@/types';
 
 interface SidebarProps {
   chats: ChatSummary[];
@@ -20,6 +21,7 @@ interface SidebarProps {
   onNewChat: () => void;
   onDeleteChat: (id: string) => void;
   onOpenStoryBibles: () => void;
+  selectedModel: ClaudeModelId;
 }
 
 export default function Sidebar({
@@ -29,7 +31,9 @@ export default function Sidebar({
   onNewChat,
   onDeleteChat,
   onOpenStoryBibles,
+  selectedModel,
 }: SidebarProps) {
+  const currentModel = CLAUDE_MODELS.find(m => m.id === selectedModel);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [hoveredChat, setHoveredChat] = useState<string | null>(null);
 
@@ -177,7 +181,7 @@ export default function Sidebar({
       {!isCollapsed && (
         <div className="p-4 border-t border-purple-500/20">
           <p className="text-xs text-gray-500 text-center">
-            Powered by Claude Opus 4.5
+            Powered by {currentModel?.name || 'Claude'}
           </p>
         </div>
       )}

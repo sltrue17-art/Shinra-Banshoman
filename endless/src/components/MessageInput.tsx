@@ -10,14 +10,18 @@ import {
   Book,
   X,
   ChevronDown,
+  Cpu,
 } from 'lucide-react';
-import type { StoryBible, GenerationSettings } from '@/types';
+import type { StoryBible, GenerationSettings, ClaudeModelId } from '@/types';
+import { CLAUDE_MODELS } from '@/types';
 
 interface MessageInputProps {
   onSend: (message: string, settings: GenerationSettings) => void;
   isLoading: boolean;
   storyBibles: StoryBible[];
   currentStoryBibleId?: string;
+  selectedModel: ClaudeModelId;
+  onModelChange: (model: ClaudeModelId) => void;
 }
 
 export default function MessageInput({
@@ -25,12 +29,15 @@ export default function MessageInput({
   isLoading,
   storyBibles,
   currentStoryBibleId,
+  selectedModel,
+  onModelChange,
 }: MessageInputProps) {
   const [message, setMessage] = useState('');
   const [thinkLonger, setThinkLonger] = useState(false);
   const [webSearch, setWebSearch] = useState(false);
   const [storyBibleId, setStoryBibleId] = useState<string | undefined>(currentStoryBibleId);
   const [showStoryBiblePicker, setShowStoryBiblePicker] = useState(false);
+  const [showModelPicker, setShowModelPicker] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -52,6 +59,7 @@ export default function MessageInput({
       thinkLonger,
       webSearch,
       storyBibleId,
+      model: selectedModel,
     });
 
     setMessage('');
@@ -101,6 +109,46 @@ export default function MessageInput({
             <Globe className="w-4 h-4" />
             <span>Web Search</span>
           </button>
+
+          {/* Model Picker */}
+          <div className="relative">
+            <button
+              onClick={() => setShowModelPicker(!showModelPicker)}
+              className={clsx(
+                'flex items-center gap-2 px-3 py-1.5 rounded-full text-sm transition-all',
+                'bg-purple-500/30 text-purple-300 border border-purple-500/50'
+              )}
+            >
+              <Cpu className="w-4 h-4" />
+              <span>{CLAUDE_MODELS.find(m => m.id === selectedModel)?.name || 'Select Model'}</span>
+              <ChevronDown className="w-3 h-3" />
+            </button>
+
+            {showModelPicker && (
+              <div className="absolute bottom-full left-0 mb-2 w-72 bg-endless-dark border border-purple-500/30 rounded-lg shadow-lg overflow-hidden z-50">
+                <div className="p-2">
+                  {CLAUDE_MODELS.map((model) => (
+                    <button
+                      key={model.id}
+                      onClick={() => {
+                        onModelChange(model.id);
+                        setShowModelPicker(false);
+                      }}
+                      className={clsx(
+                        'w-full text-left px-3 py-2 rounded text-sm transition-colors',
+                        selectedModel === model.id
+                          ? 'bg-purple-500/20 text-purple-300'
+                          : 'text-gray-400 hover:bg-purple-500/10'
+                      )}
+                    >
+                      <div className="font-medium">{model.name}</div>
+                      <div className="text-xs text-gray-500 mt-0.5">{model.description}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Story Bible Picker */}
           <div className="relative">

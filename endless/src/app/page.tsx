@@ -6,7 +6,8 @@ import ChatArea from '@/components/ChatArea';
 import MessageInput from '@/components/MessageInput';
 import StoryBiblesList from '@/components/StoryBiblesList';
 import StoryBibleEditor from '@/components/StoryBibleEditor';
-import type { Chat, ChatSummary, Message, StoryBible, GenerationSettings } from '@/types';
+import type { Chat, ChatSummary, Message, StoryBible, GenerationSettings, ClaudeModelId } from '@/types';
+import { CLAUDE_MODELS } from '@/types';
 
 export default function Home() {
   // State
@@ -16,6 +17,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [streamingContent, setStreamingContent] = useState('');
   const [streamingThinking, setStreamingThinking] = useState('');
+  const [selectedModel, setSelectedModel] = useState<ClaudeModelId>('claude-opus-4-5-20250127');
 
   // Modals
   const [showStoryBibles, setShowStoryBibles] = useState(false);
@@ -208,6 +210,7 @@ export default function Home() {
         onNewChat={handleNewChat}
         onDeleteChat={handleDeleteChat}
         onOpenStoryBibles={() => setShowStoryBibles(true)}
+        selectedModel={selectedModel}
       />
 
       {/* Main Content */}
@@ -217,6 +220,7 @@ export default function Home() {
           isStreaming={isLoading}
           streamingContent={streamingContent}
           streamingThinking={streamingThinking}
+          selectedModel={selectedModel}
         />
 
         <MessageInput
@@ -224,6 +228,8 @@ export default function Home() {
           isLoading={isLoading}
           storyBibles={storyBibles}
           currentStoryBibleId={currentChat?.storyBibleId}
+          selectedModel={selectedModel}
+          onModelChange={setSelectedModel}
         />
       </div>
 
