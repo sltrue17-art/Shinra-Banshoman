@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orhan II - Wikipedia</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { background: #f6f6f6; }
+  body {
+    font-family: sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #202122;
+  }
+  a { color: #0645ad; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a.new { color: #ba0000; }
+  sup.reference { font-size: 11px; line-height: 1; font-weight: normal; font-style: normal; }
+  sup.reference a { white-space: nowrap; }
+
+  /* ---- chrome ---- */
+  #page-wrap { position: relative; }
+  #left-panel {
+    position: absolute; top: 0; left: 0; width: 176px;
+    padding: 8px 8px 0 8px; font-size: 12px;
+  }
+  #p-logo { display: block; width: 160px; height: 160px; margin: 0 auto; text-align: center; }
+  #p-logo .globe {
+    width: 110px; height: 110px; margin: 12px auto 6px auto; border-radius: 50%;
+    background: radial-gradient(circle at 38% 32%, #fdfdfd 0%, #e8e8e8 45%, #c8c8c8 100%);
+    border: 1px solid #c8c8c8;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Linux Libertine', Georgia, 'Times New Roman', serif;
+    font-size: 56px; color: #5a5a5a;
+  }
+  #p-logo .wordmark { font-family: 'Linux Libertine', Georgia, serif; font-size: 22px; color: #000; letter-spacing: 0.5px; }
+  #p-logo .tagline { font-size: 10px; color: #54595d; letter-spacing: 1px; }
+  .portal { margin-top: 18px; }
+  .portal h3 {
+    font-size: 12px; font-weight: normal; color: #54595d;
+    border-bottom: 1px solid #c8ccd1; padding-bottom: 2px; margin-bottom: 4px;
+  }
+  .portal ul { list-style: none; }
+  .portal li { padding: 2px 0 2px 4px; }
+
+  #content-wrap { margin-left: 176px; }
+  #top-tabs {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    background: linear-gradient(to bottom, #f6f6f6 0%, #f6f6f6 50%, #f3f3f3 100%);
+    padding: 6px 0 0 0; font-size: 13px;
+  }
+  #top-tabs .tabs { display: flex; }
+  #top-tabs .tab {
+    padding: 6px 12px 4px 12px;
+    background: linear-gradient(to bottom, #f2f2f2, #fdfdfd);
+    border: 1px solid #c8ccd1; border-bottom: none;
+    margin-right: -1px; color: #0645ad; white-space: nowrap;
+  }
+  #top-tabs .tab.selected { background: #fff; color: #202122; border-bottom: 1px solid #fff; margin-bottom: -1px; }
+  #top-tabs .search { padding: 0 12px 6px 0; }
+  #top-tabs .search input {
+    width: 240px; padding: 4px 8px; border: 1px solid #a2a9b1; border-radius: 2px;
+    font-size: 13px; color: #54595d; background: #fff;
+  }
+  #content {
+    background: #fff; border: 1px solid #c8ccd1; border-right: none;
+    padding: 20px 28px 40px 28px; min-height: 400px;
+  }
+  #personal-bar { text-align: right; font-size: 11.5px; padding: 4px 12px; color: #54595d; }
+
+  /* ---- article ---- */
+  h1#firstHeading {
+    font-family: 'Linux Libertine', Georgia, 'Times New Roman', serif;
+    font-size: 28px; font-weight: normal; line-height: 1.3;
+    border-bottom: 1px solid #a2a9b1; margin-bottom: 2px; padding-bottom: 2px;
+  }
+  #siteSub { font-size: 12.5px; color: #54595d; margin-bottom: 14px; }
+  .hatnote { font-style: italic; font-size: 13px; color: #54595d; padding-left: 1.6em; margin-bottom: 8px; }
+  h2 {
+    font-family: 'Linux Libertine', Georgia, 'Times New Roman', serif;
+    font-size: 22px; font-weight: normal;
+    border-bottom: 1px solid #a2a9b1;
+    margin: 22px 0 10px 0; padding-bottom: 2px;
+    overflow: hidden;
+  }
+  h3 { font-size: 16px; margin: 18px 0 8px 0; }
+  h4 { font-size: 14.5px; margin: 14px 0 6px 0; }
+  .mw-editsection { font-family: sans-serif; font-size: 13px; font-weight: normal; margin-left: 8px; color: #54595d; }
+  .mw-editsection a { font-size: 13px; }
+  p { margin-bottom: 12px; }
+  ul.body-list { margin: 0 0 12px 30px; }
+  ul.body-list li { margin-bottom: 3px; }
+  blockquote {
+    margin: 12px 0 12px 32px; padding-left: 16px;
+    border-left: 4px solid #eaecf0; color: #202122; font-size: 13.5px;
+  }
+  blockquote .quote-source { display: block; margin-top: 4px; font-size: 12.5px; color: #54595d; }
+
+  /* ---- infobox ---- */
+  .infobox {
+    float: right; clear: right; width: 312px;
+    margin: 0 0 16px 20px;
+    border: 1px solid #a2a9b1; background: #f8f9fa;
+    font-size: 12.5px; line-height: 1.5;
+    border-spacing: 3px; padding: 3px;
+  }
+  .infobox th, .infobox td { vertical-align: top; text-align: left; padding: 1px 4px; }
+  .infobox .ib-title {
+    text-align: center; font-size: 15px; font-weight: bold;
+    background: #d40000; color: #fff; padding: 4px;
+  }
+  .infobox .ib-subtitle { text-align: center; font-size: 13px; background: #d40000; color: #fff; padding: 2px; font-weight: normal; }
+  .infobox .ib-image { text-align: center; padding: 6px 2px 2px 2px; }
+  .infobox .ib-caption { text-align: center; font-size: 11.5px; color: #222; padding-bottom: 6px; line-height: 1.4; }
+  .infobox th.label { font-weight: bold; width: 38%; }
+  .infobox .ib-header { text-align: center; font-weight: bold; background: #f0e68c; padding: 2px; }
+  .infobox .tughra-cell { text-align: center; }
+
+  /* ---- TOC ---- */
+  #toc {
+    display: inline-block; border: 1px solid #a2a9b1; background: #f8f9fa;
+    padding: 8px 16px 8px 10px; font-size: 13px; margin-bottom: 14px;
+  }
+  #toc .toctitle { text-align: center; font-weight: bold; margin-bottom: 4px; }
+  #toc .toctitle .toctoggle { font-weight: normal; font-size: 11.5px; color: #54595d; }
+  #toc ul { list-style: none; margin-left: 8px; }
+  #toc ul ul { margin-left: 22px; }
+  #toc li { margin: 1px 0; }
+  #toc .tocnumber { color: #202122; padding-right: 6px; }
+
+  /* ---- thumbs ---- */
+  .thumb {
+    border: 1px solid #c8ccd1; background: #f8f9fa; padding: 3px;
+    font-size: 11.5px; line-height: 1.4; color: #202122;
+  }
+  .thumb.tright { float: right; clear: right; margin: 4px 0 14px 20px; }
+  .thumb.tleft { float: left; clear: left; margin: 4px 20px 14px 0; }
+  .thumb .thumbinner { background: #fff; border: 1px solid #c8ccd1; padding: 0; display: block; }
+  .thumb .thumbcaption { padding: 4px 4px 2px 4px; }
+
+  /* ---- references ---- */
+  .reflist { font-size: 12px; column-width: 32em; column-gap: 32px; margin-bottom: 14px; }
+  .reflist ol { margin-left: 26px; }
+  .reflist li { margin-bottom: 3px; }
+  .bibliography ul { list-style: none; margin-left: 0; font-size: 13px; }
+  .bibliography li { margin-bottom: 5px; padding-left: 2em; text-indent: -2em; }
+
+  /* ---- succession & navbox ---- */
+  table.succession-box {
+    margin: 16px auto 6px auto; border-collapse: collapse; font-size: 12.5px;
+    border: 1px solid #a2a9b1; clear: both;
+  }
+  table.succession-box th, table.succession-box td {
+    border: 1px solid #a2a9b1; padding: 4px 10px; text-align: center; background: #f8f9fa;
+  }
+  table.succession-box th.sb-header { background: #cccccc; font-weight: bold; }
+  table.succession-box .sb-title { background: #eaecf0; width: 40%; }
+
+  #catlinks {
+    border: 1px solid #a2a9b1; background: #f8f9fa; padding: 5px 8px;
+    margin-top: 22px; font-size: 12.5px; clear: both;
+  }
+  #footer { margin-left: 176px; padding: 12px 28px; font-size: 11.5px; color: #54595d; }
+  #footer ul { list-style: none; }
+  #footer li { display: inline-block; margin-right: 14px; }
+
+  .plainlist ul { list-style: none; }
+  .center-note { text-align:center; }
+</style>
+</head>
+<body>
+<div id="page-wrap">
+
+  <!-- ============ LEFT PANEL ============ -->
+  <div id="left-panel">
+    <div id="p-logo">
+      <div class="globe">W</div>
+      <div class="wordmark">W<span style="font-size:18px;">IKIPEDI</span>A</div>
+      <div class="tagline">The Free Encyclopedia</div>
+    </div>
+    <div class="portal">
+      <ul>
+        <li><a href="#">Main page</a></li>
+        <li><a href="#">Contents</a></li>
+        <li><a href="#">Current events</a></li>
+        <li><a href="#">Random article</a></li>
+        <li><a href="#">About Wikipedia</a></li>
+        <li><a href="#">Contact us</a></li>
+        <li><a href="#">Donate</a></li>
+      </ul>
+    </div>
+    <div class="portal">
+      <h3>Contribute</h3>
+      <ul>
+        <li><a href="#">Help</a></li>
+        <li><a href="#">Learn to edit</a></li>
+        <li><a href="#">Community portal</a></li>
+        <li><a href="#">Recent changes</a></li>
+        <li><a href="#">Upload file</a></li>
+      </ul>
+    </div>
+    <div class="portal">
+      <h3>Tools</h3>
+      <ul>
+        <li><a href="#">What links here</a></li>
+        <li><a href="#">Related changes</a></li>
+        <li><a href="#">Special pages</a></li>
+        <li><a href="#">Permanent link</a></li>
+        <li><a href="#">Page information</a></li>
+        <li><a href="#">Cite this page</a></li>
+      </ul>
+    </div>
+    <div class="portal">
+      <h3>Languages</h3>
+      <ul>
+        <li><a href="#">العربية</a></li>
+        <li><a href="#">Deutsch</a></li>
+        <li><a href="#">Español</a></li>
+        <li><a href="#">Français</a></li>
+        <li><a href="#">Bahasa Indonesia</a></li>
+        <li><a href="#">Türkçe</a></li>
+        <li><a href="#">中文</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ============ CONTENT ============ -->
+  <div id="content-wrap">
+    <div id="personal-bar">Not logged in &nbsp; <a href="#">Talk</a> &nbsp; <a href="#">Contributions</a> &nbsp; <a href="#">Create account</a> &nbsp; <a href="#">Log in</a></div>
+    <div id="top-tabs">
+      <div class="tabs">
+        <div class="tab selected">Article</div>
+        <div class="tab"><a href="#" style="color:inherit;">Talk</a></div>
+      </div>
+      <div class="tabs">
+        <div class="tab selected">Read</div>
+        <div class="tab">Edit</div>
+        <div class="tab">View history</div>
+      </div>
+      <div class="search"><input type="text" value="" placeholder="Search Wikipedia"></div>
+    </div>
+
+    <div id="content">
+      <h1 id="firstHeading">Orhan II</h1>
+      <div id="siteSub">From Wikipedia, the free encyclopedia</div>
+      <div class="hatnote">For the 14th-century Ottoman ruler, see <a href="#">Orhan</a>. For other uses, see <a href="#">Orhan (disambiguation)</a>.</div>
+
+      <!-- ============ INFOBOX ============ -->
+      <table class="infobox">
+        <tr><td class="ib-title" colspan="2">Orhan II<br><span style="font-weight:normal; font-size:13px;">اورخان ثانى</span></td></tr>
+        <tr><td class="ib-subtitle" colspan="2"><a href="#" style="color:#fff;">Ottoman Caliph</a><br><i>Amir al-Mu'minin</i><br><a href="#" style="color:#fff;">Custodian of the Two Holy Mosques</a><br><i>Pâdişâh-ı Heft Deniz</i> (Lord of the Seven Seas)</td></tr>
+        <tr><td class="ib-image" colspan="2">
+          <!-- Portrait (Ottoman miniature style) -->
+          <svg width="240" height="290" viewBox="0 0 240 290" xmlns="http://www.w3.org/2000/svg" style="border:1px solid #b8a888; background:#e9dcbe;">
+            <rect x="0" y="0" width="240" height="290" fill="#e9dcbe"/>
+            <rect x="8" y="8" width="224" height="274" fill="none" stroke="#b08d3e" stroke-width="3"/>
+            <rect x="13" y="13" width="214" height="264" fill="#efe3c6" stroke="#8a6d2f" stroke-width="1"/>
+            <!-- cushion -->
+            <ellipse cx="120" cy="252" rx="92" ry="22" fill="#7d1f1f"/>
+            <ellipse cx="120" cy="248" rx="92" ry="20" fill="#9e2b2b"/>
+            <!-- robe (fur-lined kaftan) -->
+            <path d="M120 110 C70 118 52 178 56 246 L184 246 C188 178 170 118 120 110 Z" fill="#1f5f3f"/>
+            <path d="M120 112 C100 120 88 170 86 244 L154 244 C152 170 140 120 120 112 Z" fill="#c9722a"/>
+            <path d="M120 112 L112 244 L128 244 Z" fill="#e8e0ce"/>
+            <!-- sleeves / hands holding a rose -->
+            <path d="M86 180 C96 196 112 202 124 198 L122 188 C110 190 100 184 94 174 Z" fill="#c9722a"/>
+            <ellipse cx="126" cy="194" rx="9" ry="7" fill="#d9b48a"/>
+            <line x1="132" y1="190" x2="146" y2="160" stroke="#3e6b34" stroke-width="2.5"/>
+            <circle cx="148" cy="156" r="7" fill="#b03044"/>
+            <circle cx="148" cy="156" r="3.5" fill="#d4576b"/>
+            <!-- neck & face -->
+            <rect x="111" y="96" width="18" height="16" fill="#d9b48a"/>
+            <ellipse cx="120" cy="82" rx="24" ry="27" fill="#dcb992"/>
+            <!-- beard -->
+            <path d="M98 84 C98 112 142 112 142 84 C142 100 134 110 120 112 C106 110 98 100 98 84 Z" fill="#7a5230"/>
+            <!-- eyes with kohl -->
+            <path d="M106 78 q6 -4 12 0" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+            <path d="M124 78 q6 -4 12 0" stroke="#2a2a2a" stroke-width="2" fill="none"/>
+            <circle cx="112" cy="78" r="1.7" fill="#2a2a2a"/>
+            <circle cx="130" cy="78" r="1.7" fill="#2a2a2a"/>
+            <!-- brows, nose, mouth -->
+            <path d="M104 72 q8 -5 16 -1" stroke="#5a3c22" stroke-width="2" fill="none"/>
+            <path d="M122 71 q8 -4 15 1" stroke="#5a3c22" stroke-width="2" fill="none"/>
+            <path d="M119 80 q3 8 0 13" stroke="#b08d63" stroke-width="2" fill="none"/>
+            <path d="M113 98 q7 4 14 0" stroke="#8a4a3a" stroke-width="2" fill="none"/>
+            <!-- turban -->
+            <ellipse cx="120" cy="52" rx="38" ry="26" fill="#f4f0e4"/>
+            <path d="M84 56 q36 18 72 0 q-8 14 -36 14 q-28 0 -36 -14 Z" fill="#e7e1cf"/>
+            <path d="M88 42 q32 -16 64 0" stroke="#d8d2bd" stroke-width="3" fill="none"/>
+            <path d="M92 52 q28 12 56 0" stroke="#d8d2bd" stroke-width="3" fill="none"/>
+            <rect x="112" y="20" width="16" height="20" rx="6" fill="#a02c2c"/>
+            <!-- aigrette -->
+            <line x1="120" y1="22" x2="120" y2="6" stroke="#b08d3e" stroke-width="2.5"/>
+            <circle cx="120" cy="22" r="4" fill="#caa84e"/>
+            <path d="M120 6 q-5 6 0 12 q5 -6 0 -12" fill="#caa84e"/>
+            <!-- corner ornaments -->
+            <path d="M20 20 q14 0 14 14" stroke="#b08d3e" stroke-width="2" fill="none"/>
+            <path d="M220 20 q-14 0 -14 14" stroke="#b08d3e" stroke-width="2" fill="none"/>
+            <path d="M20 270 q14 0 14 -14" stroke="#b08d3e" stroke-width="2" fill="none"/>
+            <path d="M220 270 q-14 0 -14 -14" stroke="#b08d3e" stroke-width="2" fill="none"/>
+          </svg>
+        </td></tr>
+        <tr><td class="ib-caption" colspan="2">Portrait of Orhan II by an artist of the Ottoman court studio, c.&nbsp;1580</td></tr>
+        <tr><td class="ib-header" colspan="2"><a href="#">Sultan of the Ottoman Empire</a> (<a href="#">Padishah</a>)</td></tr>
+        <tr><th class="label">Reign</th><td>29 September 1566 – 8 April 1585</td></tr>
+        <tr><th class="label"><a href="#">Sword girding</a></th><td>4 October 1566</td></tr>
+        <tr><th class="label">Predecessor</th><td><a href="#">Suleiman I</a></td></tr>
+        <tr><th class="label">Successor</th><td><a href="#">Abdullah I</a></td></tr>
+        <tr><th class="label">Regent of the<br>Ottoman Empire</th><td>1 May – 29 September 1566</td></tr>
+        <tr><td colspan="2" style="padding:0;"></td></tr>
+        <tr><th class="label">Born</th><td>3 January 1540<br><a href="#">Old Palace</a>, <a href="#">Constantinople</a>, Ottoman Empire</td></tr>
+        <tr><th class="label">Died</th><td>8 April 1585 (aged 45)<br><a href="#">Topkapı Palace</a>, Constantinople, Ottoman Empire</td></tr>
+        <tr><th class="label">Burial</th><td>Türbe of Sultan Orhan II, <a href="#">Hagia Sophia</a>, Istanbul</td></tr>
+        <tr><th class="label">Consorts</th><td class="plainlist">
+          <a href="#">Canan Sultan</a> <span style="font-size:11.5px;">(m.&nbsp;1569)</span><br>
+          <a href="#">Feride Sultan</a><br>
+          Saliha Hatun<br>
+          <a href="#">others</a>
+        </td></tr>
+        <tr><th class="label"><a href="#">Issue</a><br><span style="font-weight:normal;">among<br>others</span></th><td class="plainlist">
+          <a href="#">Naciye Sultan</a><br>
+          <a href="#">Abdullah I</a><br>
+          <a href="#">Hayat Sultan</a><br>
+          <a href="#">Şehzade Ali</a><br>
+          <a href="#">Nur Sultan</a><br>
+          <a href="#">Esma Sultan</a><br>
+          <a href="#">Şehzade Ahmed</a><br>
+          <a href="#">Mübeccel Sultan</a><br>
+          <a href="#">Aylin Sultan</a>
+        </td></tr>
+        <tr><th class="label">Names</th><td>Orhan bin Suleiman Han<sup class="reference"><a href="#cite_note-1">[1]</a></sup></td></tr>
+        <tr><th class="label"><a href="#">Dynasty</a></th><td><a href="#">Ottoman</a></td></tr>
+        <tr><th class="label">Father</th><td><a href="#">Suleiman the Magnificent</a></td></tr>
+        <tr><th class="label">Mother</th><td><a href="#">Havva Hatun</a></td></tr>
+        <tr><th class="label">Religion</th><td><a href="#">Sunni Islam</a></td></tr>
+        <tr><th class="label"><a href="#">Tughra</a></th><td class="tughra-cell">
+          <svg width="120" height="62" viewBox="0 0 120 62" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#1a3a6b" stroke-width="2.2" fill="none" stroke-linecap="round">
+              <path d="M38 54 q-22 -4 -22 -16 q0 -10 14 -10 q10 0 12 8"/>
+              <path d="M44 54 q-30 -6 -30 -22 q0 -14 20 -14 q14 0 16 10"/>
+              <line x1="52" y1="50" x2="52" y2="8"/>
+              <line x1="62" y1="50" x2="62" y2="4"/>
+              <line x1="72" y1="50" x2="72" y2="8"/>
+              <path d="M52 8 q5 -6 10 0"/>
+              <path d="M62 4 q5 -6 10 4"/>
+              <path d="M30 54 q40 8 62 -6 q14 -9 22 -20"/>
+              <path d="M34 58 q44 8 66 -8"/>
+              <path d="M76 34 q16 0 26 -12"/>
+            </g>
+          </svg>
+        </td></tr>
+      </table>
+
+      <!-- ============ LEAD ============ -->
+      <p><b>Orhan II</b> (<a href="#">Ottoman Turkish</a>: اورخان ثانى, <i>Orḫān-ı sānī</i>; 3 January 1540 – 8 April 1585) was the eleventh <a href="#">Sultan of the Ottoman Empire</a>, reigning from 1566 until his death in 1585. The youngest son of <a href="#">Suleiman the Magnificent</a>, he was the first Ottoman sultan to abstain from leading military campaigns in person, and his reign coincided with the <a href="#">maritime golden age of the Ottoman Empire</a>, during which Ottoman naval power reached its greatest extent in the <a href="#">Mediterranean</a>, the <a href="#">Atlantic</a> and the <a href="#">Indian Ocean</a>. The naval conquests of his reign earned him the official title <i>Pâdişâh-ı Heft Deniz</i> ("Lord of the Seven Seas").<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+
+      <p>Born to Havva Hatun, a concubine who died giving birth to him, Orhan was for most of his early life considered the least likely of Suleiman's sons to succeed to the throne. The executions of his half-brothers <a href="#">Şehzade Mustafa</a> (1553) and <a href="#">Şehzade Bayezid</a> (1561), the accidental death of the heir apparent <a href="#">Şehzade Selim</a> (1562), and the poisoning of Selim's only son <a href="#">Şehzade Murad</a> — arranged on Orhan's orders — left him sole heir to his father.<sup class="reference"><a href="#cite_note-3">[3]</a></sup> His accession in 1566, following Suleiman's death on campaign at <a href="#">Szigetvár</a>, was contested by the army and secured only after an oath of allegiance taken at <a href="#">Belgrade</a> and the suppression of a <a href="#">Janissary</a> revolt in the capital.<sup class="reference"><a href="#cite_note-4">[4]</a></sup></p>
+
+      <p>Orhan delegated much of the government to his grand vizier <a href="#">Sokollu Mehmed Pasha</a> until the latter's assassination in 1579, and was influenced in his later years by his wife <a href="#">Canan Sultan</a>. His reign saw the conquests of <a href="#">Cyprus</a>, <a href="#">Crete</a>, <a href="#">Tunis</a>, <a href="#">Morocco</a> and the <a href="#">Canary Islands</a>, the extension of Ottoman suzerainty over the <a href="#">Swahili coast</a>, <a href="#">Aceh</a> and the <a href="#">Maldives</a>, the <a href="#">burning of Moscow</a> by his Crimean vassals in 1571, and the opening of a long war against <a href="#">Safavid Iran</a> in 1578. He concluded a commercial and diplomatic alliance with <a href="#">Elizabeth I of England</a> against <a href="#">Habsburg Spain</a>.<sup class="reference"><a href="#cite_note-5">[5]</a></sup> The final years of the reign were marked by monetary debasement, inflation and the <a href="#">Defterdar Revolt</a> of 1583, after which the sultan withdrew almost entirely from public life.<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+
+      <p>A poet under the pen name <i>Garîb</i>, a composer, and a noted patron of architecture, historiography and the <a href="#">Ottoman miniature</a>, Orhan was famed for his personal devotion to cooking, which earned him the sobriquet <b>Orhan the Cook</b> (<i>Aşçı</i>); his refusal to campaign earned him the more hostile epithet <b>Orhan the Coward</b>.<sup class="reference"><a href="#cite_note-7">[7]</a></sup> His posthumously published dream letters, known collectively as the <i><a href="#">Dreamworld</a></i>, have made him one of the most closely studied Ottoman rulers in terms of inner life and psychology.<sup class="reference"><a href="#cite_note-8">[8]</a></sup></p>
+
+      <!-- ============ TOC ============ -->
+      <div id="toc">
+        <div class="toctitle">Contents <span class="toctoggle">[hide]</span></div>
+        <ul>
+          <li><span class="tocnumber">1</span><a href="#Early_life">Early life</a></li>
+          <li><span class="tocnumber">2</span><a href="#Governorship">Governorship of Trabzon and the succession</a></li>
+          <li><span class="tocnumber">3</span><a href="#Accession">Accession</a></li>
+          <li><span class="tocnumber">4</span><a href="#Reign">Reign</a>
+            <ul>
+              <li><span class="tocnumber">4.1</span><a href="#Administration">Administration</a></li>
+              <li><span class="tocnumber">4.2</span><a href="#Maritime">Maritime expansion</a></li>
+              <li><span class="tocnumber">4.3</span><a href="#East">Safavid war and the north</a></li>
+              <li><span class="tocnumber">4.4</span><a href="#West">Relations with Europe and the Mughals</a></li>
+              <li><span class="tocnumber">4.5</span><a href="#Economy">Economic crisis and later years</a></li>
+            </ul>
+          </li>
+          <li><span class="tocnumber">5</span><a href="#Arts">Patronage of architecture and the arts</a></li>
+          <li><span class="tocnumber">6</span><a href="#Character">Character and personal life</a>
+            <ul>
+              <li><span class="tocnumber">6.1</span><a href="#Dreamworld">Dream letters</a></li>
+              <li><span class="tocnumber">6.2</span><a href="#Appearance">Appearance</a></li>
+            </ul>
+          </li>
+          <li><span class="tocnumber">7</span><a href="#Family">Family</a>
+            <ul>
+              <li><span class="tocnumber">7.1</span><a href="#Consorts">Consorts</a></li>
+              <li><span class="tocnumber">7.2</span><a href="#Sons">Sons</a></li>
+              <li><span class="tocnumber">7.3</span><a href="#Daughters">Daughters</a></li>
+            </ul>
+          </li>
+          <li><span class="tocnumber">8</span><a href="#Death">Death and succession</a></li>
+          <li><span class="tocnumber">9</span><a href="#Legacy">Legacy</a></li>
+          <li><span class="tocnumber">10</span><a href="#References">References</a></li>
+          <li><span class="tocnumber">11</span><a href="#Bibliography">Bibliography</a></li>
+        </ul>
+      </div>
+
+      <!-- ============ 1 EARLY LIFE ============ -->
+      <h2 id="Early_life">Early life<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <p>Orhan was born on 3 January 1540 at the <a href="#">Old Palace</a> (<i>Eski Saray</i>) in Constantinople, during the reign of his father, Sultan <a href="#">Suleiman the Magnificent</a>. His mother, <a href="#">Havva Hatun</a>, was a concubine of <a href="#">Bulgarian</a> Orthodox Christian origin whose birth name is believed to have been Teodora; little else is recorded of her with certainty. She is thought to have been taken from <a href="#">Rumelia</a> in the late 1530s and brought to the <a href="#">Imperial Harem</a>, where she converted to Islam and received the name Havva. She died in childbirth, and later rumours that her death was procured by <a href="#">Hurrem Sultan</a>, Suleiman's legal wife, have never been substantiated.<sup class="reference"><a href="#cite_note-9">[9]</a></sup></p>
+
+      <p>Orhan was Suleiman's last child, born at a time when the sultan's attachment to Hurrem Sultan was well established; his birth to another concubine was regarded as exceptional by contemporaries.<sup class="reference"><a href="#cite_note-9">[9]</a></sup> Raised motherless in the harem, the prince has traditionally been described as a neglected child, although contemporary accounts depict Suleiman as affectionate towards his youngest son when the duties of his reign permitted.<sup class="reference"><a href="#cite_note-10">[10]</a></sup> Orhan received the customary palace education, studying Arabic, Persian and the Islamic sciences. His circumcision was celebrated in 1552 with a two-week public festival described by observers as a spectacle.<sup class="reference"><a href="#cite_note-11">[11]</a></sup></p>
+
+      <!-- ============ 2 GOVERNORSHIP ============ -->
+      <h2 id="Governorship">Governorship of Trabzon and the succession<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <p>The execution of his eldest half-brother <a href="#">Şehzade Mustafa</a> in 1553, followed weeks later by the death of <a href="#">Şehzade Cihangir</a>, transformed Orhan's position in the dynasty. Surviving letters written between 1553 and 1558 to his tutor, <a href="#">Lala Cafer Efendi</a>, show the adolescent prince convinced that Hurrem Sultan had engineered Mustafa's downfall and that he would be eliminated next, whether by execution, mute assassins or poison.<sup class="reference"><a href="#cite_note-12">[12]</a></sup> He is reported to have prepared his own food, retained a secret food taster and slept with a knife at his side. On the advice of Cafer Efendi he displayed conspicuous obedience to his father, a posture later historians have credited with preserving his life through a decade in which Suleiman executed his two most independent-minded sons.<sup class="reference"><a href="#cite_note-12">[12]</a></sup></p>
+
+      <p>In 1555 Suleiman appointed Orhan governor of <a href="#">Trabzon</a>, a remote posting the prince accepted with evident relief. His seven-year governorship was judged unremarkable by contemporaries; administration of the province was largely conducted by Cafer Efendi, who remained the dominant figure of the prince's household until his death in 1564.<sup class="reference"><a href="#cite_note-13">[13]</a></sup> It was at Trabzon, between 1555 and 1558, that Orhan met the Croatian-born concubine later known as <a href="#">Canan Sultan</a>, who became the favourite of his harem and bore his first children.<sup class="reference"><a href="#cite_note-14">[14]</a></sup></p>
+
+      <p>The civil war between his half-brothers <a href="#">Selim</a> and <a href="#">Bayezid</a> culminated in the <a href="#">Battle of Konya</a> (1559), Bayezid's flight to <a href="#">Safavid Iran</a>, and his execution there with his sons in 1561 at Suleiman's instigation. In early 1562 Selim, by then heir apparent, died after slipping on a wet marble floor while intoxicated. Whether Orhan or his household had any hand in Selim's death has been debated since the sixteenth century without resolution.<sup class="reference"><a href="#cite_note-15">[15]</a></sup> What is established is the fate of Selim's only son, <a href="#">Şehzade Murad</a>, governor of Akşehir: within months of his father's death the young prince was poisoned by members of his own household, whom Orhan had bribed with promises of advancement. Orhan's responsibility, long suspected, was confirmed by his own admission in his posthumously published dream letters.<sup class="reference"><a href="#cite_note-16">[16]</a></sup></p>
+
+      <p>Murad's death left Orhan and his infant son Abdullah the only male Ottomans of the line apart from the reigning sultan. Suleiman acknowledged Orhan as heir and transferred him to the governorship of <a href="#">Manisa</a>, the traditional seat of the crown prince. In these years Orhan cultivated the dispersed partisans of his dead brothers, most significantly <a href="#">Sokollu Mehmed Pasha</a> — a recruitment urged on him by Canan — to whom he promised the grand vizierate in exchange for loyalty; the promise was overtaken by events when Suleiman himself raised Sokollu to the office in 1565.<sup class="reference"><a href="#cite_note-17">[17]</a></sup> When Suleiman departed on his final campaign in 1566, Orhan was summoned to Constantinople and appointed regent.</p>
+
+      <!-- ============ 3 ACCESSION ============ -->
+      <h2 id="Accession">Accession<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <div class="thumb tright">
+        <span class="thumbinner">
+        <svg width="260" height="160" viewBox="0 0 260 160" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="160" fill="#e8ddc0"/>
+          <rect x="6" y="6" width="248" height="148" fill="#efe5ca" stroke="#a8893e" stroke-width="2"/>
+          <!-- tents -->
+          <path d="M30 110 L60 70 L90 110 Z" fill="#c8b07a" stroke="#8a6d2f"/>
+          <path d="M170 112 L205 66 L240 112 Z" fill="#c8b07a" stroke="#8a6d2f"/>
+          <line x1="60" y1="70" x2="60" y2="58" stroke="#8a6d2f" stroke-width="2"/>
+          <line x1="205" y1="66" x2="205" y2="54" stroke="#8a6d2f" stroke-width="2"/>
+          <circle cx="60" cy="56" r="3" fill="#a02c2c"/>
+          <circle cx="205" cy="52" r="3" fill="#a02c2c"/>
+          <!-- throne -->
+          <rect x="112" y="84" width="40" height="28" fill="#b08d3e" stroke="#7a5e22"/>
+          <rect x="116" y="62" width="32" height="24" fill="#caa84e" stroke="#7a5e22"/>
+          <!-- seated figure -->
+          <circle cx="132" cy="56" r="7" fill="#dcb992"/>
+          <ellipse cx="132" cy="48" rx="10" ry="6" fill="#f4f0e4"/>
+          <path d="M122 64 q10 6 20 0 l2 20 l-24 0 Z" fill="#9e2b2b"/>
+          <!-- rows of soldiers -->
+          <g fill="#5a6b7a">
+            <circle cx="40" cy="132" r="5"/><circle cx="58" cy="132" r="5"/><circle cx="76" cy="132" r="5"/>
+            <circle cx="94" cy="132" r="5"/><circle cx="112" cy="132" r="5"/><circle cx="130" cy="132" r="5"/>
+            <circle cx="148" cy="132" r="5"/><circle cx="166" cy="132" r="5"/><circle cx="184" cy="132" r="5"/>
+            <circle cx="202" cy="132" r="5"/><circle cx="220" cy="132" r="5"/>
+          </g>
+          <g fill="#fff">
+            <rect x="36" y="120" width="8" height="8" rx="2"/><rect x="54" y="120" width="8" height="8" rx="2"/>
+            <rect x="72" y="120" width="8" height="8" rx="2"/><rect x="90" y="120" width="8" height="8" rx="2"/>
+            <rect x="126" y="120" width="8" height="8" rx="2"/><rect x="144" y="120" width="8" height="8" rx="2"/>
+            <rect x="162" y="120" width="8" height="8" rx="2"/><rect x="180" y="120" width="8" height="8" rx="2"/>
+            <rect x="198" y="120" width="8" height="8" rx="2"/><rect x="216" y="120" width="8" height="8" rx="2"/>
+          </g>
+          <!-- standards -->
+          <line x1="100" y1="84" x2="100" y2="44" stroke="#5a4a2a" stroke-width="2"/>
+          <line x1="164" y1="84" x2="164" y2="44" stroke="#5a4a2a" stroke-width="2"/>
+          <circle cx="100" cy="42" r="4" fill="#caa84e"/>
+          <circle cx="164" cy="42" r="4" fill="#caa84e"/>
+        </svg>
+        </span>
+        <div class="thumbcaption">The army swears allegiance to Orhan II outside Belgrade, November 1566. Miniature from the <i><a href="#">Şehnâme-i Sultan Orhan</a></i>, c.&nbsp;1585.</div>
+      </div>
+
+      <p>Suleiman died in his tent on the night of 6–7 September 1566 during the <a href="#">Siege of Szigetvár</a> in Hungary. Because the sultan had died in the midst of the empire's main field army, Grand Vizier Sokollu Mehmed Pasha concealed the death for some seven weeks: physicians continued to attend the imperial tent and decrees were issued under Suleiman's seal while a courier was dispatched to the regent in Constantinople.<sup class="reference"><a href="#cite_note-18">[18]</a></sup> Orhan was enthroned in a hastily arranged ceremony on 29 September 1566 and girded with the <a href="#">Sword of Osman</a> at <a href="#">Eyüp</a> days later, but the military elite withheld recognition: by custom a sultan's authority was not complete until the standing army had sworn the oath of allegiance (<i>biat</i>) in his presence.<sup class="reference"><a href="#cite_note-18">[18]</a></sup></p>
+
+      <p>At Sokollu's urging, Orhan travelled to meet the returning army at Belgrade. There the deception was lifted: the officials about the imperial litter put on black, the Qur'an was recited aloud, and the troops — who had believed Suleiman alive — learned of his death amid scenes of public weeping. A throne was set on the ground before the imperial tents and the viziers, commanders and Janissaries filed past to swear allegiance.<sup class="reference"><a href="#cite_note-19">[19]</a></sup> The ceremony secured Orhan's legal position but damaged his standing with the soldiery, for he deferred payment of the customary accession donative (<i><a href="#">cülûs bahşişi</a></i>) until the return to the capital. On reaching Constantinople the Janissaries mutinied, barricading the palace gates and refusing the new sultan entry until he apologised in person and paid the donative — a sum raised in part with loans from his half-sister <a href="#">Mihrimah Sultan</a>.<sup class="reference"><a href="#cite_note-20">[20]</a></sup> Contemporary observers agreed that Orhan began his reign with little respect from the army, the bureaucracy or the populace, many of whom openly mourned the princes who had predeceased him.<sup class="reference"><a href="#cite_note-20">[20]</a></sup></p>
+
+      <!-- ============ 4 REIGN ============ -->
+      <h2 id="Reign">Reign<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <h3 id="Administration">Administration</h3>
+
+      <p>Orhan was the first Ottoman sultan never to accompany his armies on campaign, a breach with two and a half centuries of dynastic practice that drew criticism throughout his reign and after.<sup class="reference"><a href="#cite_note-2">[2]</a></sup> Day-to-day government was conducted by the imperial council under Sokollu Mehmed Pasha, who retained the grand vizierate for the first thirteen years of the reign. The sultan was not, however, a mere figurehead: he read and annotated council reports, intervened in appointments, and deliberately protected capable statesmen who were rivals of Sokollu as a check on the grand vizier's power.<sup class="reference"><a href="#cite_note-21">[21]</a></sup> Relations between the two men were correct but distrustful. In 1567 Orhan permitted Sokollu to marry his niece <a href="#">İsmihan Sultan</a>, making him a <i>damad</i> (son-in-law) of the dynasty, while privately doubting his loyalty; his dream letters record recurring nightmares of the grand vizier supplanting the House of Osman.<sup class="reference"><a href="#cite_note-22">[22]</a></sup></p>
+
+      <p>Sokollu was assassinated in 1579, a year after Orhan had overruled his opposition to a new war with Iran. Responsibility for the killing was never established; contemporaries suspected the faction around Canan Sultan, with whom the grand vizier had broken in the late 1570s.<sup class="reference"><a href="#cite_note-23">[23]</a></sup> The grand vizierate subsequently passed in rapid succession through <a href="#">Lala Mustafa Pasha</a> and <a href="#">Koca Sinan Pasha</a>, and the last six years of the reign were marked by factional instability at the Porte and by the growing political influence of the harem, above all of Canan Sultan, who increasingly controlled access to the secluded sultan.<sup class="reference"><a href="#cite_note-24">[24]</a></sup></p>
+
+      <h3 id="Maritime">Maritime expansion</h3>
+
+      <p>The reign of Orhan II is conventionally identified with the maritime golden age of the Ottoman Empire. In the Mediterranean, Ottoman forces conquered <a href="#">Cyprus</a> from the <a href="#">Republic of Venice</a> (1570–71) and <a href="#">Crete</a> (1572–74), and completed the conquest of the remaining Venetian and Genoese islands of the <a href="#">Aegean</a>, ending Latin rule in the Greek archipelago.<sup class="reference"><a href="#cite_note-25">[25]</a></sup> Attempts against <a href="#">Malta</a> and <a href="#">Sicily</a> failed, the latter abandoned after storms and heavy resistance, as did expeditions against the <a href="#">Balearic Islands</a>; throughout the reign the empire's principal adversary at sea was the Spain of <a href="#">Philip II</a>.<sup class="reference"><a href="#cite_note-25">[25]</a></sup></p>
+
+      <p>In North Africa the conquest of <a href="#">Tunis</a> (1574) extinguished the <a href="#">Hafsid dynasty</a> and brought Ottoman power to the frontier of Morocco. When King <a href="#">Sebastian of Portugal</a> invaded Morocco in 1578, the <a href="#">Saadi sultan</a> appealed to the Porte; a joint Ottoman–Moroccan army destroyed the Portuguese force, Sebastian was killed, and in the political settlement that followed Morocco was annexed outright as an Ottoman province rather than a vassal state — a decision driven by the Porte's desire for a gateway to the Atlantic.<sup class="reference"><a href="#cite_note-26">[26]</a></sup> The subsequent Ottoman conquest of the <a href="#">Canary Islands</a> (1581) gave the empire its first Atlantic possessions and marked, in the words of one historian, "the moment the Ottoman Empire ceased to be a Mediterranean state."<sup class="reference"><a href="#cite_note-27">[27]</a></sup></p>
+
+      <p>In the east, Ottoman fleets completed the occupation of the <a href="#">Red Sea</a> islands and <a href="#">Socotra</a>, secured <a href="#">al-Hasa</a>, <a href="#">Bahrain</a> and the coasts of <a href="#">Julfar</a> and <a href="#">Muscat</a>, and wrested key positions on the <a href="#">Strait of Hormuz</a> from the Portuguese, against whom a running naval war was fought across the Indian Ocean for most of the reign.<sup class="reference"><a href="#cite_note-28">[28]</a></sup> The sultanates of <a href="#">Aceh</a> and the <a href="#">Maldives</a>, seeking protection against Portugal, accepted Ottoman suzerainty as tributary protectorates, and Ottoman authority was acknowledged along the <a href="#">Swahili coast</a> at <a href="#">Mogadishu</a>, <a href="#">Barawa</a>, <a href="#">Mombasa</a> and <a href="#">Kilwa</a>.<sup class="reference"><a href="#cite_note-28">[28]</a></sup> By the 1580s Orhan's name was recited in the Friday <a href="#">khutba</a>, and coins were struck in his name, from the Canaries in the west to Sumatra in the east. It was in recognition of these acquisitions that the court bestowed on him the title <i>Pâdişâh-ı Heft Deniz</i>, Lord of the Seven Seas.<sup class="reference"><a href="#cite_note-2">[2]</a></sup></p>
+
+      <p>The wealth flowing from Atlantic and Indian Ocean trade left the treasury, by the time of Orhan's death, among the richest in the world, although the cost of near-continuous naval warfare consumed much of the surplus, and the influx is judged by economic historians to have aggravated the corruption and inflation of the following decades.<sup class="reference"><a href="#cite_note-29">[29]</a></sup> Orhan's practice of declining to punish commanders for military failures — he was reported to receive news of defeats without visible emotion — caused scandal at court.<sup class="reference"><a href="#cite_note-3">[3]</a></sup></p>
+
+      <h3 id="East">Safavid war and the north</h3>
+
+      <p>Ottoman agents poisoned Shah <a href="#">Tahmasp I</a> of Iran in 1576, precipitating a succession struggle that destabilised the Safavid state. Two years later, against Sokollu Mehmed Pasha's counsel and under the influence of Lala Mustafa Pasha and Koca Sinan Pasha, Orhan declared war on Iran. The <a href="#">Ottoman–Safavid War</a> begun in 1578 outlasted the sultan, continuing until 1590.<sup class="reference"><a href="#cite_note-30">[30]</a></sup></p>
+
+      <p>On the northern frontier, Orhan ordered his vassal the <a href="#">Khan of Crimea</a> against Muscovy; the Tatar host <a href="#">burned Moscow</a> in 1571. Tsar <a href="#">Ivan IV</a> suspended Russian expansion towards the Black Sea and, in the diplomatic correspondence that followed, acknowledged the Ottoman sultan's precedence — a humiliation long remembered in Moscow.<sup class="reference"><a href="#cite_note-31">[31]</a></sup></p>
+
+      <h3 id="West">Relations with Europe and the Mughals</h3>
+
+      <p>The capitulations with France were maintained, and contacts were opened with the Dutch rebels against Spain, among whom the slogan <a href="#">"Liever Turks dan Paaps"</a> ("Rather Turkish than Papist") gained currency.<sup class="reference"><a href="#cite_note-32">[32]</a></sup> The most significant new relationship of the reign was with England. From the late 1570s Orhan and Queen <a href="#">Elizabeth I</a> exchanged letters and gifts, and English merchants received trading privileges in Ottoman territory; the <a href="#">Anglo-Ottoman alliance</a> was grounded in shared hostility to Philip II of Spain.<sup class="reference"><a href="#cite_note-33">[33]</a></sup> In a letter of 1582 Elizabeth addressed the sultan as:</p>
+
+      <blockquote>"the most sublime and powerful ruler of the world, the protector and sole sovereign of the Islamic faith... As the Queen of England, I offer our friendship and beg for your protection so that our subjects may trade safely within your territories."
+      <span class="quote-source">— Elizabeth I to Orhan II, 1582<sup class="reference"><a href="#cite_note-33">[33]</a></sup></span></blockquote>
+
+      <p>Relations with the <a href="#">Mughal Empire</a>, by contrast, deteriorated. The Mughal court declined to recognise the Ottoman sultan as caliph, and tensions over precedence in the Holy Cities spiked in 1580 when Ottoman officials humiliated members of Emperor <a href="#">Akbar</a>'s household performing the <a href="#">Hajj</a>, prompting a temporary Mughal suspension of pilgrimage caravans and charitable remittances to <a href="#">Mecca</a> and <a href="#">Medina</a>.<sup class="reference"><a href="#cite_note-34">[34]</a></sup></p>
+
+      <h3 id="Economy">Economic crisis and later years</h3>
+
+      <p>From the 1570s the Ottoman monetary system was destabilised by the influx of cheap American silver through Europe. The government responded with successive debasements of the <a href="#">akçe</a>, and the payment of the soldiery in degraded coin provoked the <a href="#">Defterdar Revolt</a> of 1583, in which mutinous troops demanded — and obtained — the head of the chief treasurer. The revolt is generally regarded as having broken the bond of loyalty between the sultan and the standing army, and Orhan, badly shaken, withdrew thereafter almost completely from public view.<sup class="reference"><a href="#cite_note-6">[6]</a></sup></p>
+
+      <p>The sultan's leniency towards corrupt officials, whom he rarely punished so long as public order was undisturbed, is cited by Ottoman chroniclers as a cause of the administrative decay of the following reigns.<sup class="reference"><a href="#cite_note-35">[35]</a></sup> He was nevertheless capable of severity: in 1580 he ordered the execution of some 3,200 members of a heterodox movement that had fomented unrest since the beginning of the reign, their heads being displayed in the streets of Constantinople, and in 1584 he personally beheaded two members of the imperial council before the assembled divan after they were entrapped, in a scheme devised with Canan Sultan, into joining a fabricated plot against his life.<sup class="reference"><a href="#cite_note-36">[36]</a></sup></p>
+
+      <!-- ============ 5 ARTS ============ -->
+      <h2 id="Arts">Patronage of architecture and the arts<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <div class="thumb tright">
+        <span class="thumbinner">
+        <svg width="260" height="150" viewBox="0 0 260 150" xmlns="http://www.w3.org/2000/svg">
+          <rect width="260" height="150" fill="#cfe0ea"/>
+          <rect x="0" y="108" width="260" height="42" fill="#9fb8a8"/>
+          <!-- main dome -->
+          <path d="M80 108 L180 108 L180 84 L80 84 Z" fill="#c9c2b2"/>
+          <path d="M86 84 A44 38 0 0 1 174 84 Z" fill="#7e92a3"/>
+          <line x1="130" y1="36" x2="130" y2="46" stroke="#5a6b7a" stroke-width="2"/>
+          <circle cx="130" cy="34" r="2.5" fill="#caa84e"/>
+          <!-- half domes -->
+          <path d="M58 108 L86 108 L86 94 A14 12 0 0 0 58 94 Z" fill="#8fa2b2"/>
+          <path d="M174 108 L202 108 L202 94 A14 12 0 0 0 174 94 Z" fill="#8fa2b2"/>
+          <!-- minarets -->
+          <rect x="38" y="48" width="7" height="60" fill="#d6cfbf"/>
+          <path d="M36 48 L48 48 L41.5 30 Z" fill="#7e92a3"/>
+          <rect x="215" y="48" width="7" height="60" fill="#d6cfbf"/>
+          <path d="M213 48 L225 48 L218.5 30 Z" fill="#7e92a3"/>
+          <rect x="36" y="70" width="11" height="4" fill="#b8b0a0"/>
+          <rect x="213" y="70" width="11" height="4" fill="#b8b0a0"/>
+          <!-- windows -->
+          <g fill="#5a6b7a">
+            <rect x="96" y="90" width="6" height="12" rx="3"/>
+            <rect x="110" y="90" width="6" height="12" rx="3"/>
+            <rect x="124" y="90" width="6" height="12" rx="3"/>
+            <rect x="138" y="90" width="6" height="12" rx="3"/>
+            <rect x="152" y="90" width="6" height="12" rx="3"/>
+          </g>
+          <!-- courtyard wall -->
+          <rect x="14" y="98" width="44" height="10" fill="#c9c2b2"/>
+          <rect x="202" y="98" width="44" height="10" fill="#c9c2b2"/>
+          <!-- trees -->
+          <circle cx="22" cy="118" r="9" fill="#4a7050"/>
+          <circle cx="242" cy="118" r="9" fill="#4a7050"/>
+          <rect x="20" y="124" width="4" height="10" fill="#5a4a2a"/>
+          <rect x="240" y="124" width="4" height="10" fill="#5a4a2a"/>
+        </svg>
+        </span>
+        <div class="thumbcaption">The <a href="#">Orhaniye Complex</a> in <a href="#">Trabzon</a>, built by <a href="#">Mimar Sinan</a> between 1572 and 1576.</div>
+      </div>
+
+      <p>Orhan was a prolific patron of charitable building. His principal foundation, the <a href="#">Orhaniye Complex</a> in Trabzon — comprising a mosque, <a href="#">madrasa</a>, hospital and <a href="#">imaret</a> (soup kitchen) — was built by the imperial architect <a href="#">Mimar Sinan</a> between 1572 and 1576 and remains the most visited monument of the city.<sup class="reference"><a href="#cite_note-37">[37]</a></sup> In the Holy Cities he endowed a madrasa, a school, a <a href="#">zawiya</a> and a large imaret, had the walls of the <a href="#">Kaaba</a> faced with marble, and in 1581 sent from Constantinople the twelve-stepped marble <a href="#">minbar</a> that stands in the <a href="#">Prophet's Mosque</a> in Medina.<sup class="reference"><a href="#cite_note-37">[37]</a></sup> Within the capital, he permanently transferred the imperial harem from the Old Palace to <a href="#">Topkapı Palace</a>, unifying the sultan's residence and household in a single complex — an institutional change of lasting consequence for Ottoman court politics.<sup class="reference"><a href="#cite_note-38">[38]</a></sup></p>
+
+      <p>The sultan wrote poetry under the <a href="#">makhlas</a> (pen name) <i>Garîb</i> ("the Stranger"); his verse was admired for its craft though faulted by contemporaries for its melancholy. He composed music, and took a direct interest in the development of the <a href="#">Ottoman miniature</a>, whose classical style matured in his court studio.<sup class="reference"><a href="#cite_note-39">[39]</a></sup> In 1580 he commissioned the <i><a href="#">Şehnâme-i Sultan Orhan</a></i> (also known as the <i>Şehinşahnâme</i>, "Book of the King of Kings"), an illustrated verse chronicle of his reign considered the masterpiece of sixteenth-century Ottoman book arts. The original recension, prepared on the sultan's instructions, depicted Orhan leading campaigns at which he had never been present; after his death the court historiographer and the head of the painting studio produced a corrected version.<sup class="reference"><a href="#cite_note-40">[40]</a></sup> Orhan also institutionalised the patronage of historians, among them <a href="#">Mustafa Selaniki</a> and <a href="#">Mustafa Âlî</a> — both, in the event, severe critics of his rule — and the historiography of the Porte is markedly richer from his reign onwards.<sup class="reference"><a href="#cite_note-41">[41]</a></sup></p>
+
+      <p>Orhan's tolerance of coffee-houses, wine and tobacco drew protests from the <a href="#">ulema</a>. He was himself an enthusiastic coffee drinker and, though not given to excess, fond of wine; Venetian reports describe monthly gatherings in the privy chamber at which the sultan drank and conversed with a circle of favoured companions while poets, musicians and entertainers performed.<sup class="reference"><a href="#cite_note-42">[42]</a></sup> His most distinctive personal enthusiasm was cooking: he prepared much of his own food throughout his life, spent hours daily in the palace kitchens, and was known popularly as <i>Aşçı</i>, "Orhan the Cook". Ottoman culinary tradition dates the creation of the <a href="#">döner kebab</a> to his reign.<sup class="reference"><a href="#cite_note-7">[7]</a></sup></p>
+
+      <!-- ============ 6 CHARACTER ============ -->
+      <h2 id="Character">Character and personal life<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <p>Contemporary accounts describe Orhan as devout, learned and curious, with sustained interests in <a href="#">Sufi mysticism</a>, astronomy and history; as tender-hearted, generous to petitioners, and notably humorous with his officials.<sup class="reference"><a href="#cite_note-43">[43]</a></sup> The same sources record a man governed by fear: superstitious, dependent on astrologers and dream interpreters, subject to attacks of panic, and increasingly unwilling to leave the palace. In his final years he twice failed for an entire year to attend the Friday procession to the imperial mosque, an unprecedented breach of custom; Selaniki writes that the sultan abandoned each planned excursion on hearing rumours of Janissary plots.<sup class="reference"><a href="#cite_note-44">[44]</a></sup> His seclusion left him, in the judgement of most historians, progressively disconnected from the condition of his empire and dependent on the harem, above all Canan Sultan, for his knowledge of events.<sup class="reference"><a href="#cite_note-24">[24]</a></sup></p>
+
+      <p>Orhan's treatment of the families of his dead brothers was remarked on by contemporaries. On his accession he restored the confiscated property and income of <a href="#">Mahidevran Hatun</a>, Mustafa's mother, who had lived in poverty since 1553, and built a proper tomb for Mustafa; she died in comfort in 1581. He likewise provided for the daughters of Bayezid and their mothers, arranged the reburial of Bayezid and his sons, and granted a generous establishment to <a href="#">Nurbanu Sultan</a>, the mother of the nephew he had killed.<sup class="reference"><a href="#cite_note-45">[45]</a></sup> Chroniclers differ on his motives; Selaniki attributes the measures to the counsel of Sokollu and Canan Sultan, who saw in them a means of repairing the sultan's reputation.<sup class="reference"><a href="#cite_note-45">[45]</a></sup> His half-sister Mihrimah Sultan, who had financed his accession donative, presided over the harem as de facto <a href="#">valide sultan</a> for the first decade of the reign, wielding greater influence than she had under her father; she was abruptly banished from Topkapı in 1577 after a quarrel involving the sultan's eldest daughter <a href="#">Naciye Sultan</a>, an episode tradition ascribes to the contrivance of Canan Sultan, and took no further part in court life.<sup class="reference"><a href="#cite_note-46">[46]</a></sup></p>
+
+      <p>A description of the sultan's daily routine in 1580 survives from his personal physician:</p>
+
+      <blockquote>"In the morning he rises at dawn to say his prayer for half an hour, then for another half-hour he bathes. Then he is given something pleasant as a collation, and afterwards sets himself to read and write for another hour. Then he begins to give audience to the members of the Divan on the three days of the week that this occurs. Then he goes for a walk through the garden, taking pleasure in the delight of fountains and animals for another hour, taking with him the dwarves, buffoons and others to entertain him. Then he goes back once again to studying until he considers the time for lunch has arrived. He stays at table only half an hour, and rises to go once again into the garden for as long as he pleases. Then he goes to say his midday prayer. Then he stops to pass the time and amuse himself with the cooks of the palace, and he will stay one or two hours with them, when it is time to say the evening prayer. Then he returns to his apartments or, if it pleases him more, he stays in the garden reading or passing the time until evening with the dwarfs and buffoons, and then he returns to say his prayers, that is at nightfall. Then he dines and takes more time over dinner than over lunch, making conversation until two hours after dark, until it is time for prayer. He never fails to observe this schedule every day."
+      <span class="quote-source">— Report of the sultan's physician, 1580<sup class="reference"><a href="#cite_note-47">[47]</a></sup></span></blockquote>
+
+      <h3 id="Dreamworld">Dream letters</h3>
+
+      <p>Between his accession and his death Orhan wrote several thousand letters describing his dreams and spiritual experiences to a succession of religious confidants. Never intended for circulation, the letters were collected after his death and are known to scholarship as the <i><a href="#">Dreamworld</a></i>.<sup class="reference"><a href="#cite_note-8">[8]</a></sup> They record visions of single combat against the empire's enemies, encounters with the <a href="#">Dajjal</a>, ascents to heaven and descents into <a href="#">Jahannam</a>, apocalyptic awakenings, and recurring nightmares of deposition by his dead brothers and by the nephew whose murder the letters confess.<sup class="reference"><a href="#cite_note-16">[16]</a></sup> Alongside the visionary material the letters contain extensive comment on the politics of the empire, and they constitute a major source for the period.</p>
+
+      <p>The letters also document the sultan's wish to escape his station. "Oh, if only I knew a way," he wrote to his teacher, "so I could just take my head and leave, and no one would look for me! So I could be free from the world's oppression and wickedness, and find peace."<sup class="reference"><a href="#cite_note-8">[8]</a></sup> Modern students of the corpus have described a ruler oppressed by his office, convinced that abdication would be rebellion against the duty God had assigned him, and tormented by the question — to which the letters return repeatedly — of why God had chosen him for the throne. Analyses of the corpus generally conclude that Orhan experienced unusually vivid, recurrent and lucid dreams, and the letters have supported a large literature on his anxiety, scrupulosity and fear of deposition.<sup class="reference"><a href="#cite_note-48">[48]</a></sup></p>
+
+      <h3 id="Appearance">Appearance</h3>
+
+      <p>Orhan was exceptionally tall for his era but of conspicuously slight build, and contemporary descriptions agree that he had no aptitude for arms, riding or the hunt — deficiencies that hostile sources elaborated with relish, and which some historians regard as exaggerated by propaganda against him.<sup class="reference"><a href="#cite_note-49">[49]</a></sup> European observers described a youthful, fine-featured, almost androgynous face that he retained into his forties, grey eyes, chestnut hair, and a well-kept light-brown beard; like many Ottoman men he lined his eyes with <a href="#">kohl</a>. A Venetian visitor who met the nineteen-year-old prince at Trabzon in 1559 left a drawing of him, bareheaded and clean-shaven as princely custom required.<sup class="reference"><a href="#cite_note-49">[49]</a></sup> He was fastidious about cleanliness and famous for his perfume, which he gifted to Elizabeth I; the queen continued to request it from the Porte after his death.<sup class="reference"><a href="#cite_note-33">[33]</a></sup></p>
+
+      <!-- ============ 7 FAMILY ============ -->
+      <h2 id="Family">Family<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <h3 id="Consorts">Consorts</h3>
+
+      <p>Orhan's favourite was <a href="#">Canan Sultan</a> (1540–1596), a Croatian-born concubine originally named Katarina, assigned to his household at Trabzon. He freed her on his accession and married her formally in 1569, following the precedent set by his father's marriage to Hurrem Sultan; as <a href="#">haseki sultan</a> she bore six of his thirteen children and became the dominant political figure of the harem, particularly after 1577.<sup class="reference"><a href="#cite_note-14">[14]</a></sup> Foreign ambassadors regarded her as the most influential person at court in the sultan's last years. She survived him as <a href="#">valide sultan</a> and at her death in 1596 was buried beside him, the first wife of a sultan to be laid to rest next to her husband.<sup class="reference"><a href="#cite_note-50">[50]</a></sup></p>
+
+      <p>His second favourite, <a href="#">Feride Sultan</a> (d. 1600), of Bosnian origin, entered his household as foster-mother to Şehzade Ali after the death of the prince's mother Saliha Hatun in childbirth — a loss that, according to all contemporary sources, briefly unbalanced the prince's reason, the only such episode of his life.<sup class="reference"><a href="#cite_note-51">[51]</a></sup> Orhan's chamberlain described the sultan as confiding in Feride habitually, and he addressed poetry to her; her rivalry with Canan Sultan was notorious at court. Two further consorts, Ayşe Hatun and Hediye Hatun, were manumitted and endowed by the sultan after the early deaths of their children.<sup class="reference"><a href="#cite_note-51">[51]</a></sup></p>
+
+      <h3 id="Sons">Sons</h3>
+      <ul class="body-list">
+        <li><a href="#">Abdullah I</a> (1560–1603) — son of Canan Sultan; governor of <a href="#">Edirne</a> 1576–1585; succeeded his father as sultan;</li>
+        <li><a href="#">Şehzade Ali</a> (1563–1585) — son of Saliha Hatun, raised by Feride Sultan; governor of <a href="#">Manisa</a> 1579–1585; executed on the accession of Abdullah I;</li>
+        <li><a href="#">Şehzade Ahmed</a> (1566–1585) — son of Feride Sultan; governor of <a href="#">Bursa</a> 1581–1585; executed on the accession of Abdullah I;</li>
+        <li>Şehzade Adnan (1573) — son of Ayşe Hatun; twin of Leyla Sultan; died in infancy;</li>
+        <li>Şehzade Alaeddin (1575) — son of Hediye Hatun; died in infancy.</li>
+      </ul>
+
+      <h3 id="Daughters">Daughters</h3>
+      <ul class="body-list">
+        <li><a href="#">Naciye Sultan</a> (1558–1594) — daughter of Canan Sultan;</li>
+        <li><a href="#">Hayat Sultan</a> (1560–1599) — daughter of Canan Sultan; twin of Abdullah I;</li>
+        <li><a href="#">Nur Sultan</a> (1564–1614) — daughter of Canan Sultan;</li>
+        <li><a href="#">Esma Sultan</a> (1565–1597) — daughter of Canan Sultan;</li>
+        <li><a href="#">Mübeccel Sultan</a> (1567–1609) — daughter of Canan Sultan;</li>
+        <li>Perran Sultan (1569) — daughter of Feride Sultan; died in infancy;</li>
+        <li><a href="#">Aylin Sultan</a> (1571–1617) — daughter of Feride Sultan;</li>
+        <li>Leyla Sultan (1573) — daughter of Ayşe Hatun; twin of Şehzade Adnan; died in infancy.</li>
+      </ul>
+
+      <p>Orhan posted his three surviving sons to governorships at Edirne, Manisa and Bursa — the assignment of the former capitals Edirne and Bursa to princes being itself a breach of custom — placing them at roughly equal distance from Constantinople so that none should enjoy an advantage in the succession.<sup class="reference"><a href="#cite_note-52">[52]</a></sup> After the death of Şehzade Alaeddin in 1575 the sultan, reportedly unable to bear the loss of further children, fathered no more. He was criticised by the ulema for attending his consorts' deliveries, and was indulgent towards all his children to a degree his critics thought injurious.<sup class="reference"><a href="#cite_note-52">[52]</a></sup></p>
+
+      <!-- ============ 8 DEATH ============ -->
+      <h2 id="Death">Death and succession<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <p>Orhan II died at Topkapı Palace at midday on 8 April 1585, during a violent spring storm, of what is now identified as <a href="#">appendicitis</a>. Palace tradition records that on the previous day a servant heard the sultan answer "<i>alaikum as-salam</i>" four times to an empty room; questioned, Orhan replied: "Abu Bakr, Omar, Uthman and Ali came and greeted me. They told me that I'll be ascending to appear before our prophet tomorrow."<sup class="reference"><a href="#cite_note-53">[53]</a></sup></p>
+
+      <p>Canan Sultan concealed the death for several days, confiding only in Grand Vizier Koca Sinan Pasha and keeping the body in an ice store while couriers rode for her son at Edirne — a stratagem recalling the concealment of Suleiman's death nineteen years before, and designed to forestall the sultan's other sons at Manisa and Bursa.<sup class="reference"><a href="#cite_note-54">[54]</a></sup> Abdullah reached Constantinople and was enthroned before his half-brothers had learned of their father's death; in accordance with the <a href="#">law of fratricide</a> he then ordered the executions of Şehzade Ali and Şehzade Ahmed, aged twenty-two and nineteen, and of Ali's infant son Şehzade Korkut.<sup class="reference"><a href="#cite_note-54">[54]</a></sup></p>
+
+      <p>Orhan was buried in the türbe he had commissioned in the first year of his reign in the courtyard of the <a href="#">Hagia Sophia</a>. Most of his children, several grandchildren, and Canan Sultan are interred with him.<sup class="reference"><a href="#cite_note-50">[50]</a></sup></p>
+
+      <!-- ============ 9 LEGACY ============ -->
+      <h2 id="Legacy">Legacy<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+
+      <p>Orhan II's reputation has been contested since his own lifetime. To the Ottoman chroniclers of the next generation, and to much later historiography, he was <i>Orhan the Coward</i>, the first sedentary sultan, whose abandonment of the campaigning tradition, indulgence of corruption and retreat into the palace planted the seeds of the empire's later difficulties; popular tradition has long blamed him, and the line descended from him, for the decline of the Ottoman state.<sup class="reference"><a href="#cite_note-55">[55]</a></sup> The charge is anachronistic in part — the fiscal crisis of the 1580s had structural causes far beyond any sultan's control — and revisionist scholarship since the late twentieth century has emphasised the achievements of the reign: nineteen years of internal stability, the greatest naval expansion in the empire's history, the consolidation of the caliphal title across the Indian Ocean world, and a flowering of architecture, painting and historiography.<sup class="reference"><a href="#cite_note-56">[56]</a></sup></p>
+
+      <p>Institutionally, the reign was a hinge. The permanent installation of the harem at Topkapı, the political ascendancy of Canan Sultan, and the sultan's withdrawal from army and public alike inaugurated the pattern of palace-bound rule and harem influence that characterised the empire for the following century.<sup class="reference"><a href="#cite_note-38">[38]</a></sup> The <i>Dreamworld</i> letters, meanwhile, have given Orhan a singular afterlife in scholarship: no other early modern Muslim ruler can be studied in comparable psychological depth, and the anxious, devout, reluctant sovereign of the letters has increasingly displaced both the coward of the chronicles and the Lord of the Seven Seas of the court panegyrics.<sup class="reference"><a href="#cite_note-48">[48]</a></sup></p>
+
+      <!-- ============ REFERENCES ============ -->
+      <h2 id="References">References<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+      <div class="reflist">
+        <ol>
+          <li id="cite_note-1"><b>^</b> Aksoy 1998, p. 12.</li>
+          <li id="cite_note-2"><b>^</b> <a href="#">a</a> <a href="#">b</a> <a href="#">c</a> Casale 2011, pp. 3–7.</li>
+          <li id="cite_note-3"><b>^</b> <a href="#">a</a> <a href="#">b</a> Imber 2009, p. 54.</li>
+          <li id="cite_note-4"><b>^</b> Aksoy 1998, pp. 88–96.</li>
+          <li id="cite_note-5"><b>^</b> Skilliter 1977, p. 69.</li>
+          <li id="cite_note-6"><b>^</b> <a href="#">a</a> <a href="#">b</a> Pamuk 2000, pp. 131–138.</li>
+          <li id="cite_note-7"><b>^</b> <a href="#">a</a> <a href="#">b</a> Işın 2013, p. 201.</li>
+          <li id="cite_note-8"><b>^</b> <a href="#">a</a> <a href="#">b</a> <a href="#">c</a> Felek 2014, pp. 1–19.</li>
+          <li id="cite_note-9"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, pp. 60–62.</li>
+          <li id="cite_note-10"><b>^</b> Aksoy 1998, p. 21.</li>
+          <li id="cite_note-11"><b>^</b> Selânikî, <i>Tarih</i>, I, p. 44.</li>
+          <li id="cite_note-12"><b>^</b> <a href="#">a</a> <a href="#">b</a> Aksoy 1998, pp. 30–41.</li>
+          <li id="cite_note-13"><b>^</b> Aksoy 1998, p. 47.</li>
+          <li id="cite_note-14"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, pp. 90–93.</li>
+          <li id="cite_note-15"><b>^</b> Imber 2009, pp. 52–53.</li>
+          <li id="cite_note-16"><b>^</b> <a href="#">a</a> <a href="#">b</a> Felek 2014, pp. 144–147.</li>
+          <li id="cite_note-17"><b>^</b> Aksoy 1998, pp. 61–66.</li>
+          <li id="cite_note-18"><b>^</b> <a href="#">a</a> <a href="#">b</a> Selânikî, <i>Tarih</i>, I, pp. 81–90.</li>
+          <li id="cite_note-19"><b>^</b> Selânikî, <i>Tarih</i>, I, pp. 92–95.</li>
+          <li id="cite_note-20"><b>^</b> <a href="#">a</a> <a href="#">b</a> Aksoy 1998, pp. 92–98.</li>
+          <li id="cite_note-21"><b>^</b> Fleischer 1986, pp. 70–74.</li>
+          <li id="cite_note-22"><b>^</b> Felek 2014, p. 188.</li>
+          <li id="cite_note-23"><b>^</b> Imber 2009, p. 62.</li>
+          <li id="cite_note-24"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, pp. 220–224.</li>
+          <li id="cite_note-25"><b>^</b> <a href="#">a</a> <a href="#">b</a> Casale 2011, pp. 118–130.</li>
+          <li id="cite_note-26"><b>^</b> Casale 2011, pp. 152–160.</li>
+          <li id="cite_note-27"><b>^</b> Casale 2011, p. 161.</li>
+          <li id="cite_note-28"><b>^</b> <a href="#">a</a> <a href="#">b</a> Casale 2011, pp. 165–183.</li>
+          <li id="cite_note-29"><b>^</b> Pamuk 2000, pp. 120–125.</li>
+          <li id="cite_note-30"><b>^</b> Imber 2009, pp. 60–61.</li>
+          <li id="cite_note-31"><b>^</b> Aksoy 1998, pp. 140–143.</li>
+          <li id="cite_note-32"><b>^</b> Skilliter 1977, p. 24.</li>
+          <li id="cite_note-33"><b>^</b> <a href="#">a</a> <a href="#">b</a> <a href="#">c</a> Skilliter 1977, pp. 69–77.</li>
+          <li id="cite_note-34"><b>^</b> Casale 2011, pp. 190–194.</li>
+          <li id="cite_note-35"><b>^</b> Mustafa Âlî, <i>Künhü'l-Ahbâr</i>, IV, fol. 312b.</li>
+          <li id="cite_note-36"><b>^</b> Selânikî, <i>Tarih</i>, II, pp. 201–204.</li>
+          <li id="cite_note-37"><b>^</b> <a href="#">a</a> <a href="#">b</a> Necipoğlu 2005, pp. 310–318.</li>
+          <li id="cite_note-38"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, pp. 119–122.</li>
+          <li id="cite_note-39"><b>^</b> Atıl 1987, pp. 29–34.</li>
+          <li id="cite_note-40"><b>^</b> Atıl 1987, pp. 78–86.</li>
+          <li id="cite_note-41"><b>^</b> Fleischer 1986, pp. 101–105.</li>
+          <li id="cite_note-42"><b>^</b> Aksoy 1998, pp. 170–172.</li>
+          <li id="cite_note-43"><b>^</b> Aksoy 1998, pp. 160–165.</li>
+          <li id="cite_note-44"><b>^</b> Selânikî, <i>Tarih</i>, II, p. 231.</li>
+          <li id="cite_note-45"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, pp. 246–248.</li>
+          <li id="cite_note-46"><b>^</b> Peirce 1993, pp. 250–252.</li>
+          <li id="cite_note-47"><b>^</b> Quoted in Aksoy 1998, p. 168.</li>
+          <li id="cite_note-48"><b>^</b> <a href="#">a</a> <a href="#">b</a> Felek 2014, pp. 200–215.</li>
+          <li id="cite_note-49"><b>^</b> <a href="#">a</a> <a href="#">b</a> Aksoy 1998, pp. 155–158.</li>
+          <li id="cite_note-50"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, p. 289.</li>
+          <li id="cite_note-51"><b>^</b> <a href="#">a</a> <a href="#">b</a> Peirce 1993, pp. 95–97.</li>
+          <li id="cite_note-52"><b>^</b> <a href="#">a</a> <a href="#">b</a> Aksoy 1998, pp. 178–183.</li>
+          <li id="cite_note-53"><b>^</b> Selânikî, <i>Tarih</i>, II, p. 290.</li>
+          <li id="cite_note-54"><b>^</b> <a href="#">a</a> <a href="#">b</a> Selânikî, <i>Tarih</i>, II, pp. 291–298.</li>
+          <li id="cite_note-55"><b>^</b> Mustafa Âlî, <i>Künhü'l-Ahbâr</i>, IV, fol. 340a.</li>
+          <li id="cite_note-56"><b>^</b> Casale 2011, pp. 200–203.</li>
+        </ol>
+      </div>
+
+      <!-- ============ BIBLIOGRAPHY ============ -->
+      <h2 id="Bibliography">Bibliography<span class="mw-editsection">[<a href="#">edit</a>]</span></h2>
+      <div class="bibliography">
+        <ul>
+          <li>Aksoy, Kemal (1998). <i>The Reluctant Padishah: Orhan II and the Transformation of the Ottoman Sultanate</i>. Istanbul: Eren. <a href="#">ISBN</a> 975-7622-44-1.</li>
+          <li>Atıl, Esin (1987). <i>The Age of Orhan II: Painting at the Ottoman Court, 1566–1585</i>. Washington, D.C.: National Gallery of Art.</li>
+          <li>Casale, Giancarlo (2011). <i>Lord of the Seven Seas: The Ottoman Maritime Empire under Orhan II</i>. Oxford: Oxford University Press. <a href="#">ISBN</a> 978-0-19-979879-7.</li>
+          <li>Felek, Özgen (2014). <i>Dreamworld: The Dream Letters of Sultan Orhan II</i>. Albany: SUNY Press. <a href="#">ISBN</a> 978-1-4384-5293-3.</li>
+          <li>Fleischer, Cornell H. (1986). <i>Bureaucrat and Intellectual in the Ottoman Empire: The Historian Mustafa Âlî (1541–1600)</i>. Princeton: Princeton University Press.</li>
+          <li>Imber, Colin (2009). <i>The Ottoman Empire, 1300–1650: The Structure of Power</i> (2nd ed.). Basingstoke: Palgrave Macmillan. <a href="#">ISBN</a> 978-0-230-57451-9.</li>
+          <li>Işın, Priscilla Mary (2013). <i>Sultan of the Kitchens: Food and Cookery at the Court of Orhan II</i>. London: Reaktion Books.</li>
+          <li>Necipoğlu, Gülru (2005). <i>The Age of Sinan: Architectural Culture in the Ottoman Empire</i>. London: Reaktion Books. <a href="#">ISBN</a> 978-1-86189-244-7.</li>
+          <li>Pamuk, Şevket (2000). <i>A Monetary History of the Ottoman Empire</i>. Cambridge: Cambridge University Press. <a href="#">ISBN</a> 978-0-521-44197-1.</li>
+          <li>Peirce, Leslie P. (1993). <i>The Imperial Harem: Women and Sovereignty in the Ottoman Empire</i>. New York: Oxford University Press. <a href="#">ISBN</a> 978-0-19-508677-5.</li>
+          <li>Selânikî Mustafa Efendi. <i>Tarih-i Selânikî</i>. Ed. Mehmet İpşirli. 2 vols. Istanbul, 1989.</li>
+          <li>Skilliter, Susan A. (1977). <i>William Harborne and the Trade with Turkey, 1578–1582: A Documentary Study of the First Anglo-Ottoman Relations</i>. Oxford: Oxford University Press.</li>
+        </ul>
+      </div>
+
+      <!-- ============ SUCCESSION BOX ============ -->
+      <table class="succession-box">
+        <tr><th colspan="3" class="sb-header">Orhan II<br><span style="font-weight:normal;">Born: 3 January 1540 &nbsp;Died: 8 April 1585</span></th></tr>
+        <tr><th colspan="3" class="sb-header" style="background:#eaecf0;">Regnal titles</th></tr>
+        <tr>
+          <td class="sb-title">Preceded by<br><b><a href="#">Suleiman I</a></b></td>
+          <td><b>Sultan of the Ottoman Empire</b><br>29 September 1566 – 8 April 1585</td>
+          <td class="sb-title">Succeeded by<br><b><a href="#">Abdullah I</a></b></td>
+        </tr>
+        <tr><th colspan="3" class="sb-header" style="background:#eaecf0;">Sunni Islam titles</th></tr>
+        <tr>
+          <td class="sb-title">Preceded by<br><b><a href="#">Suleiman I</a></b></td>
+          <td><b><a href="#">Caliph of the Ottoman Caliphate</a></b><br>1566–1585</td>
+          <td class="sb-title">Succeeded by<br><b><a href="#">Abdullah I</a></b></td>
+        </tr>
+      </table>
+
+      <!-- ============ CATEGORIES ============ -->
+      <div id="catlinks">
+        <a href="#">Categories</a>: <a href="#">1540 births</a> | <a href="#">1585 deaths</a> | <a href="#">16th-century Ottoman sultans</a> | <a href="#">Ottoman dynasty</a> | <a href="#">Royalty from Istanbul</a> | <a href="#">Ottoman poets</a> | <a href="#">Deaths from appendicitis</a> | <a href="#">Burials at Hagia Sophia</a> | <a href="#">Custodian of the Two Holy Mosques</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <div id="footer">
+    <p>This page was last edited on 27 May 2026, at 14:32 (UTC).</p>
+    <p>Text is available under the <a href="#">Creative Commons Attribution-ShareAlike License 4.0</a>; additional terms may apply.</p>
+    <ul>
+      <li><a href="#">Privacy policy</a></li>
+      <li><a href="#">About Wikipedia</a></li>
+      <li><a href="#">Disclaimers</a></li>
+      <li><a href="#">Contact Wikipedia</a></li>
+      <li><a href="#">Mobile view</a></li>
+      <li><a href="#">Developers</a></li>
+      <li><a href="#">Statistics</a></li>
+      <li><a href="#">Cookie statement</a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
