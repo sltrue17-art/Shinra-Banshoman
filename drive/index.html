@@ -4,6 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>Model 3 City Drive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap">
 <style>
 /* ---------------------------------------------------------------
    Model 3 City Drive — first-person driving simulator
@@ -163,6 +166,13 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border:0;border-radiu
   color:#5b6472;letter-spacing:.12em;pointer-events:none;font-variant-numeric:tabular-nums;display:none}
 #stats.show{display:block}
 
+button:focus-visible,.chip:focus-visible,.toggle:focus-visible,input:focus-visible,.pedal:focus-visible{
+  outline:2px solid var(--accent);outline-offset:3px;
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important}
+}
 @media (max-height:520px){
   .pedal{height:62vh}
   #bootcard li{font-size:12px}
@@ -242,7 +252,7 @@ input[type=range]::-moz-range-thumb{width:16px;height:16px;border:0;border-radiu
   <!-- boot -->
   <div id="boot">
     <div>
-      <h2>Tesla&nbsp;Model&nbsp;3 · First&nbsp;Person</h2>
+      <h2>A first-person simulator · Model&nbsp;3 shaped sedan</h2>
       <h1>CITY DRIVE</h1>
     </div>
     <div id="bootcard" class="panel">
@@ -351,7 +361,7 @@ var TEX={};
 function buildTextures(){
   /* ---- asphalt ---- */
   var c=makeCanvas(512,512),x=c.getContext('2d');
-  x.fillStyle='#2b2d31';x.fillRect(0,0,512,512);
+  x.fillStyle='#3a3d43';x.fillRect(0,0,512,512);
   blotches(x,512,512,90,20,120,'20,21,24',0.5);
   blotches(x,512,512,60,10,60,'60,62,68',0.28);
   /* aggregate grain */
@@ -445,6 +455,31 @@ function buildTextures(){
     TEX.facadesNight.push(texFromCanvas(cn,1,1,4));
     TEX.facadeRough.push(dataTex(cro,1,1));
   }
+
+  /* ---- ground-floor shopfronts: glazed bays, some lit, some shut ---- */
+  c=makeCanvas(256,128);x=c.getContext('2d');
+  var cs=makeCanvas(256,128),xs=cs.getContext('2d');   /* what glows after dark */
+  x.fillStyle='#2c333c';x.fillRect(0,0,256,128);
+  xs.fillStyle='#000';xs.fillRect(0,0,256,128);
+  for(i=0;i<4;i++){
+    var sx0=i*64+7, sw=50;
+    x.fillStyle='#20262e';x.fillRect(sx0,18,sw,96);      /* glazing */
+    var sgr=x.createLinearGradient(sx0,18,sx0,114);
+    sgr.addColorStop(0,'rgba(170,195,220,.35)');sgr.addColorStop(1,'rgba(20,26,34,.5)');
+    x.fillStyle=sgr;x.fillRect(sx0,18,sw,96);
+    x.strokeStyle='#151a20';x.lineWidth=3;x.strokeRect(sx0,18,sw,96);
+    x.fillStyle='#39424e';x.fillRect(sx0,4,sw,12);       /* fascia */
+    if(Math.random()<0.62){
+      var lit=0.55+Math.random()*0.45;
+      xs.fillStyle='rgba('+Math.round(255*lit)+','+Math.round(226*lit)+','+Math.round(186*lit)+',1)';
+      xs.fillRect(sx0+3,21,sw-6,90);
+      xs.fillStyle='rgba(120,190,255,'+(0.3+Math.random()*0.5)+')';
+      xs.fillRect(sx0+6,6,sw-12,9);                      /* a sign over the door */
+    }
+  }
+  noiseInto(x,256,128,10);
+  TEX.shop=texFromCanvas(c,1,1,8);
+  TEX.shopNight=texFromCanvas(cs,1,1,4);
 
   /* ---- rooftop / generic grey ---- */
   c=makeCanvas(128,128);x=c.getContext('2d');
@@ -899,7 +934,7 @@ CITY.buildBuildings=function(group){
       CITY.buildings.push({x:cx,z:cz,hx:hx,hz:hz,h:h});
     }
     /* ground floor retail band */
-    shopGeos.push(bakedBox(hx*2+0.12,4.0,hz*2+0.12,cx,CITY.KERB_H+2.0,cz,0.25));
+    shopGeos.push(bakedBox(hx*2+0.12,4.0,hz*2+0.12,cx,CITY.KERB_H+2.0,cz,0.0625));
     /* canopy over the shopfront */
     trimGeos.push(bakedBox(hx*2+1.4,0.22,hz*2+1.4,cx,CITY.KERB_H+4.3,cz,0.3));
   }
@@ -938,8 +973,8 @@ CITY.buildBuildings=function(group){
   roofM.castShadow=true;roofM.receiveShadow=true;group.add(roofM);
 
   CITY.shopMesh=new THREE.Mesh(mergeGeometries(shopGeos),new THREE.MeshStandardMaterial({
-    color:0x161b22, roughness:0.18, metalness:0.75, envMapIntensity:1.1,
-    emissive:0xffb066, emissiveIntensity:0.0
+    map:TEX.shop, color:0xffffff, roughness:0.30, metalness:0.35, envMapIntensity:1.2,
+    emissiveMap:TEX.shopNight, emissive:0xffffff, emissiveIntensity:0.0
   }));
   CITY.shopMesh.receiveShadow=true;group.add(CITY.shopMesh);
 
@@ -1255,7 +1290,7 @@ var CAR={
   L:4.694, W:1.849, H:1.443, WB:2.875, TRACK:1.584, WHEEL_R:0.342,
   /* the body faces +Z with +Y up, so the car's right is -X and the
      left-hand-drive driver sits at +X */
-  EYE:{x:0.375,y:1.150,z:0.02}
+  EYE:{x:0.375,y:1.150,z:-0.06}
 };
 
 /* piecewise-linear table lookup */
@@ -1398,7 +1433,7 @@ function buildCar(scene,envMap){
       new THREE.Vector3(sx*0.815,1.19,0.80),
       new THREE.Vector3(sx*0.755,1.35,0.47),
       new THREE.Vector3(sx*0.70,1.435,0.20)
-    ],0.052);
+    ],0.046);
     /* B-pillar */
     pillar([
       new THREE.Vector3(sx*0.905,1.03,-0.30),
@@ -1560,8 +1595,9 @@ function buildCar(scene,envMap){
   /* headlight beams (used at night / in rain) */
   var beams=[];
   [-1,1].forEach(function(sx){
-    var sp=new THREE.SpotLight(0xfff0d8,0,70,0.55,0.55,1.4);
-    sp.position.set(sx*0.6,0.86,2.2);
+    var sp=new THREE.SpotLight(0xfff0d8,0,70,0.48,0.6,1.4);
+    sp.layers.set(2);                 /* lights the world, not the car itself */
+    sp.position.set(sx*0.6,0.86,2.32);
     sp.target.position.set(sx*0.9,-0.4,22);
     body.add(sp);body.add(sp.target);
     beams.push(sp);
@@ -1584,14 +1620,14 @@ function buildInterior(car,envMap){
   var dark=new THREE.MeshStandardMaterial({map:TEX.cloth,color:0x8b9099,roughness:0.92,metalness:0.02});
   var carpet=new THREE.MeshStandardMaterial({color:0x14161a,roughness:1.0});
   var leather=new THREE.MeshStandardMaterial({map:TEX.leather,color:0xc8ced6,roughness:0.62,metalness:0.03});
-  var gloss=new THREE.MeshStandardMaterial({color:0x191c21,roughness:0.12,metalness:0.5,envMap:envMap,envMapIntensity:0.7});
+  var gloss=new THREE.MeshStandardMaterial({color:0x191c21,roughness:0.20,metalness:0.45,envMap:envMap,envMapIntensity:0.32});
   var wood=new THREE.MeshStandardMaterial({map:TEX.wood,roughness:0.42,metalness:0.12,envMap:envMap,envMapIntensity:0.4});
   var alu=new THREE.MeshStandardMaterial({map:TEX.alu,roughness:0.3,metalness:0.95,envMap:envMap});
   var liner=new THREE.MeshStandardMaterial({map:TEX.headliner,color:0xd8dad6,roughness:0.98});
   var rubber=new THREE.MeshStandardMaterial({color:0x0b0c0e,roughness:0.95});
 
   function box(w,h,d,x,y,z,mat,rx,ry,rz){
-    var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);
+    var m=new THREE.Mesh(bakedBox(w,h,d,0,0,0,1.7),mat);
     m.position.set(x,y,z);
     if(rx)m.rotation.x=rx; if(ry)m.rotation.y=ry; if(rz)m.rotation.z=rz;
     I.add(m);return m;
@@ -1637,7 +1673,7 @@ function buildInterior(car,envMap){
   /* ---- steering wheel ---- */
   var wheelPivot=new THREE.Group();
   wheelPivot.position.set(0.375,0.912,0.495);
-  wheelPivot.rotation.x=-(90-24)*DEG;                         /* column rake */
+  wheelPivot.rotation.x=-(180-24)*DEG;   /* face the driver, raked 24 deg off vertical */
   I.add(wheelPivot);
   var wheel=new THREE.Group();
   wheelPivot.add(wheel);
@@ -3103,6 +3139,11 @@ function boot(){
       }],
     ['Waking the traffic…',function(){ TRAFFIC.init(scene,STATE.envMap); }],
     ['Fitting the mirrors…',function(){
+        /* layer 2 is 'lit by the headlights': the world joins it, the car does not */
+        camera.layers.enable(2);
+        CITY.group.traverse(function(o){o.layers.enable(2);});
+        for(var tk in TRAFFIC.meshes) TRAFFIC.meshes[tk].layers.enable(2);
+        TRAFFIC.pedMesh.layers.enable(2);
         setupMirrors();
         buildRain(scene);
         STATE.vehicle=new Vehicle();
@@ -3149,11 +3190,14 @@ function start(){
   if(AUDIO.ctx&&AUDIO.ctx.state==='suspended') AUDIO.ctx.resume();
   setTimeout(function(){
     if(!STATE.hintSeen){
-      var h=document.getElementById('grabHint');
-      h.classList.add('show');
-      setTimeout(function(){h.classList.remove('show');},6000);
+      STATE.showHint=true;
+      document.getElementById('grabHint').classList.add('show');
+      setTimeout(function(){
+        STATE.showHint=false;
+        document.getElementById('grabHint').classList.remove('show');
+      },7000);
     }
-  },1200);
+  },1400);
   toast('Select D on the right, then press the accelerator');
 }
 
@@ -3171,6 +3215,7 @@ function setupMirrors(){
   var iv=STATE.car.userData.interior;
   var q=(STATE.quality==='high')?1.4:(STATE.quality==='low'?0.6:1.0);
   STATE.mirrorCam=new THREE.PerspectiveCamera(42,4,0.08,320);
+  STATE.mirrorCam.layers.enable(2);
   STATE.rearRT=new THREE.WebGLRenderTarget(Math.round(512*q),Math.round(128*q));
   STATE.sideRT=[new THREE.WebGLRenderTarget(Math.round(256*q),Math.round(128*q)),
                 new THREE.WebGLRenderTarget(Math.round(256*q),Math.round(128*q))];
@@ -3188,7 +3233,7 @@ function setupMirrors(){
 }
 function renderMirrors(){
   if(STATE.view!==0) return;
-  if(STATE.quality==='low'&&(STATE.mirrorFrame++%3)!==0) return;
+  if(STATE.quality==='low'&&(STATE.mirrorFrame++%4)!==0) return;
   if(STATE.quality==='med'&&(STATE.mirrorFrame++%2)!==0) return;
   var r=STATE.renderer,scene=STATE.scene,mc=STATE.mirrorCam;
   var iv=STATE.car.userData.interior;
@@ -3295,7 +3340,7 @@ function applyPreset(name){
   /* night dressing */
   var nightMix=(name==='night')?1:(name==='dusk'?0.7:(name==='dawn'?0.45:0));
   if(CITY.facadeMeshes) CITY.facadeMeshes.forEach(function(m){m.material.emissiveIntensity=nightMix*1.15;});
-  if(CITY.shopMesh) CITY.shopMesh.material.emissiveIntensity=nightMix*0.55;
+  if(CITY.shopMesh) CITY.shopMesh.material.emissiveIntensity=nightMix*1.0;
   if(CITY.lampMesh) CITY.lampMesh.material.emissiveIntensity=P.streetLights?1.6:0.0;
   if(CITY.lightPools) CITY.lightPools.material.opacity=P.streetLights?(0.28+nightMix*0.5):0.0;
   if(STATE.car&&STATE.car.userData.interior.fill){
@@ -3417,8 +3462,8 @@ function updateCarVisuals(V,dt){
   /* the wheel in your hands */
   iv.wheel.rotation.z=-INPUT.wheelAngle;
   /* pedals move with your fingers */
-  iv.pedalGas.rotation.x=0.30+INPUT.throttle*0.36;
-  iv.pedalBrake.rotation.x=0.30+INPUT.brake*0.30;
+  iv.pedalGas.rotation.x=0.30-INPUT.throttle*0.36;
+  iv.pedalBrake.rotation.x=0.30-INPUT.brake*0.30;
   /* stalks nudge with the indicators */
   iv.stalkL.rotation.z=-0.10+INPUT.blinker*0.12;
   iv.stalkR.rotation.z=-0.10+((V.gear==='R')?0.14:(V.gear==='D'?-0.14:0));
@@ -3558,6 +3603,21 @@ function renderLoop(){
     iv.screenTex.needsUpdate=true;
   }
 
+  /* park the "grab the wheel" hint over the rim itself */
+  if(STATE.showHint&&STATE.car&&STATE.view===0){
+    if(STATE.hintSeen){
+      STATE.showHint=false;
+      document.getElementById('grabHint').classList.remove('show');
+    }else{
+      var hp=new THREE.Vector3();
+      STATE.car.userData.interior.wheelHit.getWorldPosition(hp);
+      hp.project(STATE.camera);
+      var hel=document.getElementById('grabHint');
+      hel.style.left=((hp.x*0.5+0.5)*innerWidth)+'px';
+      hel.style.top=((-hp.y*0.5+0.5)*innerHeight)+'px';
+    }
+  }
+
   renderMirrors();
   STATE.renderer.render(STATE.scene,STATE.camera);
 
@@ -3604,6 +3664,11 @@ function wireUI(){
     STATE.renderer.setPixelRatio(pr);
     STATE.renderer.shadowMap.enabled=(v!=='low');
     STATE.sun.castShadow=(v!=='low');
+    var sz=(v==='high')?2048:1024;
+    if(STATE.sun.shadow.mapSize.x!==sz){
+      STATE.sun.shadow.mapSize.set(sz,sz);
+      if(STATE.sun.shadow.map){STATE.sun.shadow.map.dispose();STATE.sun.shadow.map=null;}
+    }
     TRAFFIC.active=Math.round(TRAFFIC.maxCars*(v==='low'?0.35:(v==='med'?0.6:1))*
       (parseInt(document.getElementById('rngTraffic').value,10)/100)*1.6);
     TRAFFIC.active=clamp(TRAFFIC.active,0,TRAFFIC.maxCars);
@@ -3632,7 +3697,22 @@ function wireUI(){
   document.getElementById('btnReset').addEventListener('click',function(){
     resetCar();toast('Vehicle returned to the kerb');
   });
-  TRAFFIC.active=42;
+  /* phones and tablets start on the lighter settings */
+  var mobile=/Android|iPhone|iPad|iPod|Mobile|Silk/i.test(navigator.userAgent||'')
+          || (('ontouchstart' in window)&&Math.min(screen.width,screen.height)<900);
+  if(mobile){
+    document.querySelectorAll('#segQual button').forEach(function(b){
+      b.classList.toggle('sel',b.dataset.v==='low');
+    });
+    STATE.quality='low';
+    STATE.renderer.setPixelRatio(1);
+    STATE.renderer.shadowMap.enabled=false;
+    STATE.sun.castShadow=false;
+    document.getElementById('rngTraffic').value=35;
+    TRAFFIC.active=24;
+  }else{
+    TRAFFIC.active=42;
+  }
 }
 
 window.__bootSim=boot;
